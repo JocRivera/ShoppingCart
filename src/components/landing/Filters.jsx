@@ -31,7 +31,7 @@ export default function Filters() {
                 <Slider className="w-[300px]" defaultValue={[0]} max={100} step={1}
                     onValueChange={(value) => setValue(value)}
                 />
-                <span className="text-sm font-medium">{value}</span>
+                <span className="text-sm font-medium">${value}</span>
             </div>
         </div>
     )
