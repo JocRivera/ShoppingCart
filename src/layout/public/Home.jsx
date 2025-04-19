@@ -6,7 +6,7 @@ const HomeLayout = () => {
     return (
         <div className="min-h-screen">
             <Navbar />
-            <main className="flex flex-col p-4 pt-24 mt-4"> {/* Aumentado el padding-top y añadido margin-top */}
+            <main className="flex flex-col p-4 pt-22"> {/* Aumentado el padding-top y añadido margin-top */}
                 <Outlet />
             </main>
         </div>

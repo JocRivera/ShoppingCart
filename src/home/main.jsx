@@ -1,11 +1,28 @@
-import { Button } from "@/components/ui/button"
-
+import CardProduct from "@/components/landing/CardProduct";
+import { products as initialProducts } from "../mocks/products.json"
+import { useState } from "react";
 export default function Home() {
+    const [products, setProducts] = useState(initialProducts);
+    const [filters, setFilters] = useState({
+        category: 'all',
+        minPrice: 0,
+    });
+    const filterProducts = (products) => {
+        return products.filter(product => {
+            return (
+                product.price >= filters.minPrice &&
+                (filters.category === 'all' || product.category === filters.category)
+            )
+        })
+    }
+    const filteredProducts = filterProducts(products);
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h1 className="text-4xl font-bold mb-4">Welcome to the Home Page</h1>
-            <Button variant="outline" >Outline</Button>
-
+        <div>
+            <div className="container mx-auto px-4 py-4 ">
+                <div >
+                    <CardProduct products={filteredProducts} />
+                </div>
+            </div>
         </div>
     );
 }
