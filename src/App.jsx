@@ -1,11 +1,16 @@
-
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomeLayout from './layout/public/Home.jsx';
+import PublicRoutes from './routes/public.routes.jsx';
 function App() {
 
   return (
-    <>
-      <h1>Shopping Cart</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/*" element={<HomeLayout />}>
+          <Route path="*" element={<PublicRoutes />} />
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
