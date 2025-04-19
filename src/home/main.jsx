@@ -1,6 +1,7 @@
 import CardProduct from "@/components/landing/CardProduct";
 import { products as initialProducts } from "../mocks/products.json"
 import { useState } from "react";
+import Filters from "@/components/landing/Filters";
 export default function Home() {
     const [products, setProducts] = useState(initialProducts);
     const [filters, setFilters] = useState({
@@ -19,6 +20,7 @@ export default function Home() {
     return (
         <div>
             <div className="container mx-auto px-4 py-4 ">
+                <Filters />
                 <div >
                     <CardProduct products={filteredProducts} />
                 </div>
