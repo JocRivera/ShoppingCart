@@ -16,7 +16,7 @@ export default function CardProduct({ products }) {
     }
     return (
         <div >
-            <ul className="flex gap-4 flex-wrap justify-center">
+            <ul className="flex gap-4 flex-wrap justify-end">
                 {products.map((product) => (
                     <li key={product.id}>
                         <Card className="w-80 bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
