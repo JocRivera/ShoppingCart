@@ -43,9 +43,18 @@ export default function OpenCart() {
     return (
         <Popover >
             <PopoverTrigger >
-                <Button size="icon">
-                    <ShoppingCart className="h-5 w-5" />
-                </Button>
+                <div className="relative">
+                    <Button size="icon">
+                        <ShoppingCart className="h-5 w-5" />
+                    </Button>
+                    {cart.length > 0 && (
+                        <div className="absolute -top-1 -right-1">
+                            <span className="bg-red-500 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
+                                {cart.length}
+                            </span>
+                        </div>
+                    )}
+                </div>
             </PopoverTrigger>
             <PopoverContent className="w-80 p-0" align="end" sideOffset={5}>
                 <div className="p-4">
@@ -58,6 +67,5 @@ export default function OpenCart() {
                 </div>
             </PopoverContent>
         </Popover>
-
     );
 }   
