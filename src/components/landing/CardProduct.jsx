@@ -15,11 +15,11 @@ export default function CardProduct({ products }) {
         addToCart(product)
     }
     return (
-        <div >
-            <ul className="flex gap-4 flex-wrap justify-end">
+        <div className="container mx-auto px-4 py-4 ">
+            <ul className="gap-4 flex-wrap justify-start flex">
                 {products.map((product) => (
                     <li key={product.id}>
-                        <Card className="w-80 bg-black shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <Card className="w-75 bg-black shadow-md hover:shadow-lg transition-shadow duration-300">
                             <CardHeader>
                                 <CardTitle
                                     className="text-lg font-bold text-white"

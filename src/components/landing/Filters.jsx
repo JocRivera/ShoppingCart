@@ -41,8 +41,8 @@ export default function Filters() {
                         <SelectValue placeholder="All" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="smartphones">smartphones</SelectItem>
-                        <SelectItem value="laptops">Laptops</SelectItem>
+                        <SelectItem value="rings">Rings</SelectItem>
+                        <SelectItem value="earrings">Earrings</SelectItem>
                         <SelectItem value="all">All</SelectItem>
                     </SelectContent>
                 </Select>

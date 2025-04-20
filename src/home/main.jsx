@@ -6,7 +6,7 @@ import { useFilters } from "@/hooks/useFilters";
 export default function Home() {
     const [products, setProducts] = useState(initialProducts);
     const { filters, setFilters, filterProducts } = useFilters();
-    const filteredProducts = filterProducts(products);
+    const filteredProducts = filterProducts(products).slice(0, 4);
     return (
         <>
             <div className="w-full h-[300px] overflow-hidden bg-black relative">
@@ -14,13 +14,10 @@ export default function Home() {
                     Compra ahora
                 </h1>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 px-4 flex flex-col ">
                 <Header />
-                <div >
-                    <CardProduct products={filteredProducts} />
-                </div>
+                <CardProduct products={filteredProducts} />
             </div>
-
         </>
     );
 }
