@@ -41,9 +41,9 @@ export default function Filters() {
                         <SelectValue placeholder="All" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
+                        <SelectItem value="smartphones">smartphones</SelectItem>
+                        <SelectItem value="laptops">Laptops</SelectItem>
+                        <SelectItem value="all">All</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
