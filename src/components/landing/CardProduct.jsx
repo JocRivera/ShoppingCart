@@ -19,18 +19,21 @@ export default function CardProduct({ products }) {
             <ul className="flex gap-4 flex-wrap justify-end">
                 {products.map((product) => (
                     <li key={product.id}>
-                        <Card className="w-80 bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <Card className="w-80 bg-black shadow-md hover:shadow-lg transition-shadow duration-300">
                             <CardHeader>
-                                <CardTitle>{product.title}</CardTitle>
+                                <CardTitle
+                                    className="text-lg font-bold text-white"
+                                >{product.title}</CardTitle>
                                 <CardDescription
                                     className="h-12"
                                 >{product.description}</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <img src={product.thumbnail} alt={product.title} />
+                                <img className="w-full h-65 object-contain rounded-md"
+                                    src={product.thumbnail} alt={product.title} />
                             </CardContent>
                             <CardFooter>
-                                <p className="text-lg font-semibold">${product.price}</p>
+                                <p className="text-lg font-semibold text-white">${product.price}</p>
                                 <Button
                                     onClick={() => handleAddToCart(product)}
                                     variant="outline" className="ml-25">

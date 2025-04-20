@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <>
             <div className="w-full h-[300px] overflow-hidden bg-black relative">
-                <h1 className="text-white text-5xl font-extrabold text-center pt-20 shadow-2xl uppercase tracking-wide transform transition duration-500 hover:scale-110 hover:text-yellow-400">
+                <h1 className=" cursor-pointer text-white text-5xl font-extrabold text-center pt-20 shadow-2xl uppercase tracking-wide transform transition duration-500 hover:scale-110 hover:text-yellow-400">
                     Compra ahora
                 </h1>
             </div>
