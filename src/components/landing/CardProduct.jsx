@@ -7,8 +7,13 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useCart } from "@/hooks/useCart"
 
 export default function CardProduct({ products }) {
+    const { addToCart } = useCart()
+    const handleAddToCart = (product) => {
+        addToCart(product)
+    }
     return (
         <div >
             <ul className="flex gap-4 flex-wrap justify-center">
@@ -26,7 +31,9 @@ export default function CardProduct({ products }) {
                             </CardContent>
                             <CardFooter>
                                 <p className="text-lg font-semibold">${product.price}</p>
-                                <Button variant="outline" className="ml-25">
+                                <Button
+                                    onClick={() => handleAddToCart(product)}
+                                    variant="outline" className="ml-25">
                                     Add to Cart
                                 </Button>
                             </CardFooter>
