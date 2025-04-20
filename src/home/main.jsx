@@ -1,21 +1,13 @@
 import CardProduct from "@/components/landing/CardProduct";
 import { products as initialProducts } from "../mocks/products.json"
 import { useState } from "react";
-import Header from "./Header";
+import Header from "./Header"
+import { useFilters } from "@/hooks/useFilters";
 export default function Home() {
     const [products, setProducts] = useState(initialProducts);
-    const [filters, setFilters] = useState({
-        category: 'all',
-        minPrice: 0,
-    });
-    const filterProducts = (products) => {
-        return products.filter(product => {
-            return (
-                product.price >= filters.minPrice &&
-                (filters.category === 'all' || product.category === filters.category)
-            )
-        })
-    }
+    const { filters, setFilters, filterProducts } = useFilters();
+
+
     const filteredProducts = filterProducts(products);
     return (
         <div>

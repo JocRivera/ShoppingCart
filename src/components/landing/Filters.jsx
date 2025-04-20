@@ -1,21 +1,42 @@
 import * as React from "react";
-import { useState } from "react"
-import { Slider } from "@/components/ui/slider"
+import { useState, useId } from "react";
+import { Slider } from "@/components/ui/slider";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { useFilters } from "@/hooks/useFilters";
 
 export default function Filters() {
-    const [value, setValue] = useState([0]);
+
+    const { filters, setFilters } = useFilters();
+    const minPriceFilterId = useId();
+    const categoryFilterId = useId();
+
+    const handleCategoryChange = (value) => {
+        setFilters((prevState) => ({
+            ...prevState,
+            category: value,
+        }));
+    };
+
+    const handleChangeMinPrice = (value) => {
+        setFilters((prevState) => ({
+            ...prevState,
+            minPrice: value[0],
+        }));
+    };
+
     return (
         <div className="flex flex-col gap-4 mb-4">
             <div className="flex items-center gap-2">
-                <label htmlFor="category" className="text-sm font-medium">Category</label>
-                <Select>
+                <label htmlFor={categoryFilterId} className="text-sm font-medium">
+                    Category
+                </label>
+                <Select onValueChange={handleCategoryChange}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="All" />
                     </SelectTrigger>
@@ -26,13 +47,21 @@ export default function Filters() {
                     </SelectContent>
                 </Select>
             </div>
+
             <div className="flex items-center gap-2">
-                <label htmlFor="minPrice" className="text-sm font-medium">Price</label>
-                <Slider className="w-[300px]" defaultValue={[0]} max={100} step={1}
-                    onValueChange={(value) => setValue(value)}
+                <label htmlFor={minPriceFilterId} className="text-sm font-medium">
+                    Price
+                </label>
+                <Slider
+                    id={minPriceFilterId}
+                    className="w-[300px]"
+                    defaultValue={[filters.minPrice]}
+                    max={2000}
+                    step={10}
+                    onValueChange={handleChangeMinPrice}
                 />
-                <span className="text-sm font-medium">${value}</span>
+                <span className="text-sm font-medium">${filters.minPrice}</span>
             </div>
         </div>
-    )
+    );
 }
