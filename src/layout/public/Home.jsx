@@ -5,16 +5,12 @@ import { CartProvider } from "@/context/cart";
 
 const HomeLayout = () => {
     return (
-        <div className="min-h-screen">
-            <CartProvider>
-
-                <Navbar />
-                <main className="flex flex-col p-4 pt-22"> {/* Aumentado el padding-top y añadido margin-top */}
-                    <Outlet />
-                </main>
-
-            </CartProvider>
-        </div>
+        <CartProvider>
+            <Navbar />
+            <main className="flex flex-col p-4 pt-22"> {/* Aumentado el padding-top y añadido margin-top */}
+                <Outlet />
+            </main>
+        </CartProvider>
     );
 }
 
