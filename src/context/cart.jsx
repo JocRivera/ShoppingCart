@@ -30,12 +30,35 @@ export const CartProvider = ({ children }) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
     };
 
+    const removeItemFromCart = (productId) => {
+        setCart((prevCart) => {
+            const existingProductIndex = prevCart.findIndex((item) => item.id === productId);
+
+            if (existingProductIndex >= 0) {
+                const newCart = [...prevCart];
+                const product = newCart[existingProductIndex];
+
+                if (product.quantity > 1) {
+                    newCart[existingProductIndex] = {
+                        ...product,
+                        quantity: product.quantity - 1
+                    };
+                    return newCart;
+                } else {
+                    // Remove the product from cart if quantity is 1
+                    return newCart.filter((item) => item.id !== productId);
+                }
+            }
+            return prevCart;
+        });
+    }
+
     const clearCart = () => {
         setCart([]);
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, removeItemFromCart }}>
             {children}
         </CartContext.Provider>
     );

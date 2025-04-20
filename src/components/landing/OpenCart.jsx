@@ -5,9 +5,9 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { useCart } from "@/hooks/useCart"
-import { ShoppingCart, Plus } from "lucide-react";
+import { ShoppingCart, Plus, Minus } from "lucide-react";
 function CartItem({ item }) {
-    const { addToCart, removeFromCart } = useCart()
+    const { addToCart, removeFromCart, removeItemFromCart } = useCart()
     const handleAddToCart = (product) => {
         addToCart(product)
     }
@@ -31,7 +31,7 @@ function CartItem({ item }) {
                 <div className="flex items-center">
                     <Button onClick={() => handleAddToCart(item)} ><Plus size={48} strokeWidth={3} /></Button>
                     <span className="mx-2">{item.quantity}</span>
-                    <Button className="bg-red-500">-</Button>
+                    <Button className="bg-red-500" onClick={() => removeItemFromCart(item.id)}><Minus size={48} strokeWidth={3} /></Button>
                 </div>
             </div >
         </>
