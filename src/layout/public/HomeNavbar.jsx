@@ -13,12 +13,12 @@ export default function Navbar() {
                 <div className="flex space-x-4 ">
                     <ul>
                         <li>
-                            <a className="text-gray-700 hover:text-gray-900" href="colecctions">Todos los productos</a>
+                            <a className="text-gray-700 hover:text-gray-900" href="all">Todos los productos</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <a className="text-gray-700 hover:text-gray-900" href="colecctions">Colecciónes</a>
+                            <a className="text-gray-700 hover:text-gray-900" href="collections">Colecciónes</a>
                         </li>
                     </ul>
                 </div>
