@@ -8,7 +8,7 @@
          "discountPercentage": 12.96,
          "rating": 4.69,
          "stock": 94,
-         "brand": "Local",
+         "collection": "classic",
          "category": "rings",
          "thumbnail": "../public/IMG_4890.JPG",
          "images": [
@@ -27,7 +27,7 @@
          "discountPercentage": 17.94,
          "rating": 4.44,
          "stock": 34,
-         "brand": "Local",
+         "collection": "classic",
          "category": "earrings",
          "thumbnail": "../public/IMG_4887.JPG",
          "images": [
@@ -45,7 +45,7 @@
          "discountPercentage": 15.46,
          "rating": 4.09,
          "stock": 36,
-         "brand": "Samsung",
+         "collection": "classic",
          "category": "smartphones",
          "thumbnail": "../public/IMG_0364.jpg",
          "images": [
@@ -60,7 +60,7 @@
          "discountPercentage": 17.91,
          "rating": 4.3,
          "stock": 123,
-         "brand": "Local",
+         "collection": "classic",
          "category": "rings",
          "thumbnail": "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg",
          "images": [
@@ -79,7 +79,7 @@
          "discountPercentage": 10.58,
          "rating": 4.09,
          "stock": 32,
-         "brand": "Huawei",
+         "collection": "classic",
          "category": "smartphones",
          "thumbnail": "https://cdn.dummyjson.com/product-images/5/thumbnail.jpg",
          "images": [
@@ -96,7 +96,7 @@
          "discountPercentage": 11.02,
          "rating": 4.57,
          "stock": 83,
-         "brand": "Apple",
+         "collection": "classic",
          "category": "laptops",
          "thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.png",
          "images": [
@@ -114,7 +114,7 @@
          "discountPercentage": 4.15,
          "rating": 4.25,
          "stock": 50,
-         "brand": "Samsung",
+         "collection": "contemporary",
          "category": "laptops",
          "thumbnail": "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg",
          "images": [
@@ -132,7 +132,7 @@
          "discountPercentage": 10.23,
          "rating": 4.43,
          "stock": 68,
-         "brand": "Microsoft Surface",
+         "collection": "contemporary",
          "category": "laptops",
          "thumbnail": "https://cdn.dummyjson.com/product-images/8/thumbnail.jpg",
          "images": [
@@ -151,7 +151,7 @@
          "discountPercentage": 11.83,
          "rating": 4.54,
          "stock": 96,
-         "brand": "Infinix",
+         "collection": "contemporary",
          "category": "laptops",
          "thumbnail": "https://cdn.dummyjson.com/product-images/9/thumbnail.jpg",
          "images": [
@@ -170,7 +170,7 @@
          "discountPercentage": 6.18,
          "rating": 4.43,
          "stock": 89,
-         "brand": "HP Pavilion",
+         "collection": "contemporary",
          "category": "laptops",
          "thumbnail": "https://cdn.dummyjson.com/product-images/10/thumbnail.jpeg",
          "images": [
@@ -188,7 +188,7 @@
          "discountPercentage": 8.4,
          "rating": 4.26,
          "stock": 65,
-         "brand": "Impression of Acqua Di Gio",
+         "collection": "Impression of Acqua Di Gio",
          "category": "fragrances",
          "thumbnail": "https://cdn.dummyjson.com/product-images/11/thumbnail.jpg",
          "images": [
@@ -206,7 +206,7 @@
          "discountPercentage": 15.66,
          "rating": 4,
          "stock": 52,
-         "brand": "Royal_Mirage",
+         "collection": "Royal_Mirage",
          "category": "fragrances",
          "thumbnail": "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg",
          "images": [
@@ -225,7 +225,7 @@
          "discountPercentage": 8.14,
          "rating": 4.59,
          "stock": 61,
-         "brand": "Fog Scent Xpressio",
+         "collection": "Fog Scent Xpressio",
          "category": "fragrances",
          "thumbnail": "https://cdn.dummyjson.com/product-images/13/thumbnail.webp",
          "images": [
@@ -244,7 +244,7 @@
          "discountPercentage": 15.6,
          "rating": 4.21,
          "stock": 114,
-         "brand": "Al Munakh",
+         "collection": "Al Munakh",
          "category": "fragrances",
          "thumbnail": "https://cdn.dummyjson.com/product-images/14/thumbnail.jpg",
          "images": [
@@ -262,7 +262,7 @@
          "discountPercentage": 10.99,
          "rating": 4.7,
          "stock": 105,
-         "brand": "Lord - Al-Rehab",
+         "collection": "Lord - Al-Rehab",
          "category": "fragrances",
          "thumbnail": "https://cdn.dummyjson.com/product-images/15/thumbnail.jpg",
          "images": [
@@ -281,7 +281,7 @@
          "discountPercentage": 13.31,
          "rating": 4.83,
          "stock": 110,
-         "brand": "L'Oreal Paris",
+         "collection": "L'Oreal Paris",
          "category": "skincare",
          "thumbnail": "https://cdn.dummyjson.com/product-images/16/thumbnail.jpg",
          "images": [
@@ -300,7 +300,7 @@
          "discountPercentage": 4.09,
          "rating": 4.52,
          "stock": 78,
-         "brand": "Hemani Tea",
+         "collection": "Hemani Tea",
          "category": "skincare",
          "thumbnail": "https://cdn.dummyjson.com/product-images/17/thumbnail.jpg",
          "images": [
@@ -318,7 +318,7 @@
          "discountPercentage": 13.1,
          "rating": 4.56,
          "stock": 88,
-         "brand": "Dermive",
+         "collection": "Dermive",
          "category": "skincare",
          "thumbnail": "https://cdn.dummyjson.com/product-images/18/thumbnail.jpg",
          "images": [
@@ -337,7 +337,7 @@
          "discountPercentage": 10.68,
          "rating": 4.42,
          "stock": 54,
-         "brand": "ROREC White Rice",
+         "collection": "ROREC White Rice",
          "category": "skincare",
          "thumbnail": "https://cdn.dummyjson.com/product-images/19/thumbnail.jpg",
          "images": [
@@ -355,7 +355,7 @@
          "discountPercentage": 16.99,
          "rating": 4.06,
          "stock": 140,
-         "brand": "Fair & Clear",
+         "collection": "Fair & Clear",
          "category": "skincare",
          "thumbnail": "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
          "images": [
@@ -369,12 +369,12 @@
       {
          "id": 21,
          "title": "- Daal Masoor 500 grams",
-         "description": "Fine quality Branded Product Keep in a cool and dry place",
+         "description": "Fine quality collectioned Product Keep in a cool and dry place",
          "price": 20,
          "discountPercentage": 4.81,
          "rating": 4.44,
          "stock": 133,
-         "brand": "Saaf & Khaas",
+         "collection": "Saaf & Khaas",
          "category": "groceries",
          "thumbnail": "https://cdn.dummyjson.com/product-images/21/thumbnail.png",
          "images": [
@@ -391,7 +391,7 @@
          "discountPercentage": 15.58,
          "rating": 4.57,
          "stock": 146,
-         "brand": "Bake Parlor Big",
+         "collection": "Bake Parlor Big",
          "category": "groceries",
          "thumbnail": "https://cdn.dummyjson.com/product-images/22/thumbnail.jpg",
          "images": [
@@ -408,7 +408,7 @@
          "discountPercentage": 8.04,
          "rating": 4.85,
          "stock": 26,
-         "brand": "Baking Food Items",
+         "collection": "Baking Food Items",
          "category": "groceries",
          "thumbnail": "https://cdn.dummyjson.com/product-images/23/thumbnail.jpg",
          "images": [
@@ -427,7 +427,7 @@
          "discountPercentage": 16.8,
          "rating": 4.94,
          "stock": 113,
-         "brand": "fauji",
+         "collection": "fauji",
          "category": "groceries",
          "thumbnail": "https://cdn.dummyjson.com/product-images/24/thumbnail.jpg",
          "images": [
@@ -446,7 +446,7 @@
          "discountPercentage": 13.58,
          "rating": 4.87,
          "stock": 47,
-         "brand": "Dry Rose",
+         "collection": "Dry Rose",
          "category": "groceries",
          "thumbnail": "https://cdn.dummyjson.com/product-images/25/thumbnail.jpg",
          "images": [
@@ -465,7 +465,7 @@
          "discountPercentage": 17.86,
          "rating": 4.08,
          "stock": 131,
-         "brand": "Boho Decor",
+         "collection": "Boho Decor",
          "category": "home-decoration",
          "thumbnail": "https://cdn.dummyjson.com/product-images/26/thumbnail.jpg",
          "images": [
@@ -485,7 +485,7 @@
          "discountPercentage": 15.58,
          "rating": 4.41,
          "stock": 17,
-         "brand": "Flying Wooden",
+         "collection": "Flying Wooden",
          "category": "home-decoration",
          "thumbnail": "https://cdn.dummyjson.com/product-images/27/thumbnail.webp",
          "images": [
@@ -504,7 +504,7 @@
          "discountPercentage": 16.49,
          "rating": 4.82,
          "stock": 54,
-         "brand": "LED Lights",
+         "collection": "LED Lights",
          "category": "home-decoration",
          "thumbnail": "https://cdn.dummyjson.com/product-images/28/thumbnail.jpg",
          "images": [
@@ -523,7 +523,7 @@
          "discountPercentage": 15.34,
          "rating": 4.44,
          "stock": 7,
-         "brand": "luxury palace",
+         "collection": "luxury palace",
          "category": "home-decoration",
          "thumbnail": "https://cdn.dummyjson.com/product-images/29/thumbnail.webp",
          "images": [
@@ -542,7 +542,7 @@
          "discountPercentage": 2.92,
          "rating": 4.92,
          "stock": 54,
-         "brand": "Golden",
+         "collection": "Golden",
          "category": "home-decoration",
          "thumbnail": "https://cdn.dummyjson.com/product-images/30/thumbnail.jpg",
          "images": [

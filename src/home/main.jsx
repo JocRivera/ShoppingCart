@@ -15,7 +15,10 @@ export default function Home() {
                 </h1>
             </div>
             <div className="mt-4 px-4 flex flex-col ">
-                <Header />Algunos productos
+                {/* <Header /> */}
+                <h1 className="  text-3xl font-light text-start">
+                    Productos destacados
+                </h1>
                 <CardProduct products={filteredProducts} />
             </div>
             <div className="w-full h-[300px] overflow-hidden relative">
