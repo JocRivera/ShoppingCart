@@ -79,8 +79,19 @@ export const AuthProvider = ({ children }) => {
             return error;
         }
     }
+    const logout = async () => {
+        try {
+            await authService.Logout();
+            Cookies.remove('token');
+            setUser(null);
+            setIsAuthenticated(false);
+            console.log("User logged out");
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    }
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signin, errors, loading }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signin, errors, loading, logout }}>
             {children}
         </AuthContext.Provider>
     );

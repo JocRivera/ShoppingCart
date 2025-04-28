@@ -1,7 +1,26 @@
 import OpenCart from "@/components/landing/OpenCart";
 import { Gem } from "lucide-react";
+import { useAuth } from "../../context/auth.jsx";
 import { OpenLogin } from "@/components/dialog/OpenLogin";
+import ProfileButton from "@/components/profile/ProfileButton";
 export default function Navbar() {
+    const { user, isAuthenticated } = useAuth();
+    const renderAuth = () => {
+        if (isAuthenticated && user) {
+            switch (user.role) {
+                case 'admin':
+                    return <ProfileButton />;
+                case 'user':
+                    return <ProfileButton />;
+                default:
+                    return null;
+            }
+        }
+        else {
+            return <OpenLogin />;
+        }
+    }
+
     return (
         <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -22,7 +41,7 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <ul className="flex space-x-4">
-                    <OpenLogin />
+                    {renderAuth()}
                     <OpenCart />
                 </ul>
             </div>

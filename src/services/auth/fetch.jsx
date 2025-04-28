@@ -42,6 +42,21 @@ class AuthService {
         }
     }
 
+    async Logout() {
+        try {
+            const response = await axios.post(`${API_URL}logout`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Logout error:', error);
+            throw error;
+        }
+    }
+
 }
 
 export default AuthService;
