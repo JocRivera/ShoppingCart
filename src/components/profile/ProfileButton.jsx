@@ -17,19 +17,19 @@ export default function ProfileButton() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar>
+                <Avatar className="ring-2 ring-green-500 ring-offset-[2px] ring-offset-background">
                     <AvatarImage src="https://avatars.githubusercontent.com/u/149016549?s=400&u=dec0096a1f6918203580f4292f3d7bd910bde7e9&v=4" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Perfil</DropdownMenuItem>
                 <DropdownMenuItem>Pedidos</DropdownMenuItem>
                 <DropdownMenuItem
                     onClick={handleLogout}
-                >Logout</DropdownMenuItem>
+                >Salir</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
