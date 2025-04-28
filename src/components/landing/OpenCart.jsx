@@ -58,7 +58,7 @@ export default function OpenCart() {
             </PopoverTrigger>
             <PopoverContent className="w-80 p-0" align="end" sideOffset={5}>
                 <div className="p-4">
-                    <h2 className="text-lg font-semibold">Shopping Cart</h2>
+                    <h2 className="text-lg font-semibold">Carrito</h2>
                     <div className="max-h-60 overflow-y-auto">
                         {cart.map((item) => (
                             <CartItem key={item.id} item={item} />
