@@ -28,6 +28,7 @@ export default function ProfileButton() {
                 <DropdownMenuItem>Perfil</DropdownMenuItem>
                 <DropdownMenuItem>Pedidos</DropdownMenuItem>
                 <DropdownMenuItem
+                    className="cursor-pointer hover:text-destructive hover:bg-destructive/10 "
                     onClick={handleLogout}
                 >Salir</DropdownMenuItem>
             </DropdownMenuContent>
