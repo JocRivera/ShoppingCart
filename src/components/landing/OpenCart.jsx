@@ -29,9 +29,9 @@ function CartItem({ item }) {
             </div>
             <div className="border-b border-gray-200 p-2 flex items-center justify-between ">
                 <div className="flex items-center">
-                    <Button onClick={() => handleAddToCart(item)} ><Plus size={48} strokeWidth={3} /></Button>
+                    <Button size="s" onClick={() => handleAddToCart(item)} ><Plus size={48} strokeWidth={3} /></Button>
                     <span className="mx-2">{item.quantity}</span>
-                    <Button className="bg-red-500" onClick={() => removeItemFromCart(item.id)}><Minus size={48} strokeWidth={3} /></Button>
+                    <Button size="s" className="bg-rose-500 " onClick={() => removeItemFromCart(item.id)}><Minus size={48} strokeWidth={3} /></Button>
                 </div>
             </div >
         </>
