@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button"
 import OpenCart from "@/components/landing/OpenCart";
-import { UserRound } from "lucide-react";
 import { Gem } from "lucide-react";
+import { OpenLogin } from "@/components/dialog/OpenLogin";
 export default function Navbar() {
     return (
         <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
@@ -23,9 +22,7 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <ul className="flex space-x-4">
-                    <Button variant="outline" size="icon">
-                        <UserRound />
-                    </Button>
+                    <OpenLogin />
                     <OpenCart />
                 </ul>
             </div>
