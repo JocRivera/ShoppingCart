@@ -9,11 +9,19 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useAuth } from "@/context/auth"
+import { useState } from "react"
+export function LoginForm({ className, ...props }) {
+  const { signin, errors } = useAuth()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-export function LoginForm({
-  className,
-  ...props
-}) {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await signin({ email, password })
+
+  }
+
   return (
     (<div className={cn("flex flex-col gap-7", className)} {...props}>
       <Card className="border-none shadow-none">
@@ -24,11 +32,14 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input id="email" type="email" placeholder="m@example.com" required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
@@ -39,7 +50,10 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
