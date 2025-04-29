@@ -83,6 +83,14 @@ export const CartProvider = ({ children }) => {
 
 
     const removeFromCart = (productId) => {
+        if (user) {
+            cartService.removeFromCart(productId).then((response) => {
+                console.log("Product removed from cart:", response);
+            }).catch((error) => {
+                console.error("Error removing product from cart:", error);
+            });
+        }
+
         setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
     };
 
@@ -111,15 +119,6 @@ export const CartProvider = ({ children }) => {
 
     const clearCart = () => {
         setCart([]);
-        if (user) {
-            cartService.clearCart().then((response) => {
-                console.log("Cart cleared:", response);
-            }).catch((error) => {
-                console.error("Error clearing cart:", error);
-            });
-        } else {
-            localStorage.removeItem("cart");
-        }
     }
 
     return (
