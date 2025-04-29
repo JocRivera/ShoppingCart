@@ -1,11 +1,23 @@
 import { createContext, useState } from "react";
+import CartService from "@/services/cart/fetch";
+import { useAuth } from "./auth";
 
+export const cartService = new CartService();
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
+    const { user } = useAuth();
 
     const addToCart = (product) => {
+        if (user) {
+            cartService.addToCart(product).then((response) => {
+                console.log("Product added to cart:", response);
+            }).catch((error) => {
+                console.error("Error adding product to cart:", error);
+            });
+        }
+
         setCart((prevCart) => {
             // Check if product already exists in cart
             const existingProductIndex = prevCart.findIndex((item) => item.id === product.id);

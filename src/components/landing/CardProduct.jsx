@@ -23,14 +23,14 @@ export default function CardProduct({ products }) {
                             <CardHeader>
                                 <CardTitle
                                     className="text-lg font-bold text-white"
-                                >{product.title}</CardTitle>
+                                >{product.tittle}</CardTitle>
                                 <CardDescription
                                     className="h-12"
                                 >{product.description}</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <img className="w-full h-65 object-contain rounded-md"
-                                    src={product.thumbnail} alt={product.title} />
+                                    src={product.thumbnail || product.image} alt={product.tittle} />
                             </CardContent>
                             <CardFooter>
                                 <p className="text-lg font-semibold text-white">${product.price}</p>

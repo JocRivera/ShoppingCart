@@ -1,12 +1,31 @@
 import CardProduct from "@/components/landing/CardProduct";
-import { products as initialProducts } from "../mocks/products.json"
 import { useState } from "react";
-import Header from "./Header"
 import { useFilters } from "@/hooks/useFilters";
+import ProductService from "@/services/product/fetch";
+import { useEffect } from "react";
 export default function Home() {
-    const [products, setProducts] = useState(initialProducts);
-    const { filters, setFilters, filterProducts } = useFilters();
-    const filteredProducts = filterProducts(products).slice(0, 4);
+    const [products, setProducts] = useState([]);
+    const { filters, filterProducts } = useFilters();
+    const productService = new ProductService();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await productService.getProducts();
+                console.log("Products fetched:", response);
+                setProducts(response);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    const filteredProducts = filterProducts(products);
+    console.log("Filtered products:", filteredProducts);
+
+
     return (
         <>
             <div className="w-full h-[300px] overflow-hidden bg-black relative">
