@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const varifyToken = async () => {
+        const verifyToken = async () => {
             console.log("verifying token")
             const cookies = Cookies.get();
             if (cookies.token) {
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
                 setIsLoading(false);
             }
         }
-        varifyToken();
+        verifyToken();
     }, []);
     const signin = async (user) => {
         try {
