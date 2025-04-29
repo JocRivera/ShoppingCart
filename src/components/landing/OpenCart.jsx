@@ -20,7 +20,7 @@ function CartItem({ item }) {
                         <h3 className="text-sm font-semibold">{item.title}</h3>
                         <p className="text-sm text-gray-500">${item.price}</p>
                     </div>
-                    <button className="cursor-pointer" onClick={() => removeFromCart(item.id)}>
+                    <button className="cursor-pointer" onClick={() => removeFromCart(item._id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -31,7 +31,7 @@ function CartItem({ item }) {
                 <div className="flex items-center">
                     <Button size="s" onClick={() => handleAddToCart(item)} ><Plus size={48} strokeWidth={3} /></Button>
                     <span className="mx-2">{item.quantity}</span>
-                    <Button size="s" className="bg-rose-500 " onClick={() => removeItemFromCart(item.id)}><Minus size={48} strokeWidth={3} /></Button>
+                    <Button size="s" className="bg-rose-500 " onClick={() => removeItemFromCart(item._id)}><Minus size={48} strokeWidth={3} /></Button>
                 </div>
             </div >
         </>
@@ -61,7 +61,7 @@ export default function OpenCart() {
                     <h2 className="text-lg font-semibold">Carrito</h2>
                     <div className="max-h-60 overflow-y-auto">
                         {cart.map((item) => (
-                            <CartItem key={item.id} item={item} />
+                            <CartItem key={item._id} item={item} />
                         ))}
                     </div>
                 </div>
