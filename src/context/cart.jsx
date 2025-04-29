@@ -1,9 +1,17 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import CartService from "@/services/cart/fetch";
 import { useAuth } from "./auth";
 
 export const cartService = new CartService();
 export const CartContext = createContext();
+
+export const useCart = () => {
+    const context = useContext(CartContext);
+    if (!context) {
+        throw new Error("useCart must be used within a CartProvider");
+    }
+    return context;
+}
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);

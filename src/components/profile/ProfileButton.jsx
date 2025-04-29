@@ -8,10 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "../../context/auth.jsx"
+import { useCart } from "@/context/cart.jsx"
 export default function ProfileButton() {
+    const { clearCart } = useCart()
     const { logout } = useAuth()
     const handleLogout = () => {
         logout()
+        clearCart()
     }
 
     return (
