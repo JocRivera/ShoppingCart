@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
 
         setCart((prevCart) => {
             // Check if product already exists in cart
-            const existingProductIndex = prevCart.findIndex((item) => item.id === product.id);
+            const existingProductIndex = prevCart.findIndex((item) => item._id === product._id);
 
             if (existingProductIndex >= 0) {
                 // Product exists, create a new array with updated quantity
