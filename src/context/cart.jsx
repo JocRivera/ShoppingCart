@@ -111,7 +111,16 @@ export const CartProvider = ({ children }) => {
 
     const clearCart = () => {
         setCart([]);
-    };
+        if (user) {
+            cartService.clearCart().then((response) => {
+                console.log("Cart cleared:", response);
+            }).catch((error) => {
+                console.error("Error clearing cart:", error);
+            });
+        } else {
+            localStorage.removeItem("cart");
+        }
+    }
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, removeItemFromCart }}>

@@ -4,7 +4,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { useCart } from "@/hooks/useCart"
+import { useCart } from "@/context/useCart"
 import { ShoppingCart, Plus, Minus } from "lucide-react";
 function CartItem({ item }) {
     const { addToCart, removeFromCart, removeItemFromCart } = useCart()
