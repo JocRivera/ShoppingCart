@@ -12,7 +12,6 @@ export default function Home() {
         const fetchProducts = async () => {
             try {
                 const response = await productService.getProducts();
-                console.log("Products fetched:", response);
                 setProducts(response);
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -23,8 +22,6 @@ export default function Home() {
     }, []);
 
     const filteredProducts = filterProducts(products);
-    console.log("Filtered products:", filteredProducts);
-
 
     return (
         <>
