@@ -10,8 +10,12 @@ export const CartProvider = ({ children }) => {
     const { user } = useAuth();
 
     const addToCart = (product) => {
+        console.log("Adding product to cart:", product);
         if (user) {
-            cartService.addToCart(product).then((response) => {
+            cartService.addToCart({
+                productId: product._id,
+                quantity: 1
+            }).then((response) => {
                 console.log("Product added to cart:", response);
             }).catch((error) => {
                 console.error("Error adding product to cart:", error);

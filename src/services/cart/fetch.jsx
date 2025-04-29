@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:3000/api/cart/'; // Replace with your API URL
 class CartService {
     async getCart() {
         try {
-            const response = await axios.get(`${API_URL}getCart`, {
+            const response = await axios.get(`${API_URL}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -18,9 +18,9 @@ class CartService {
         }
     }
 
-    async addToCart(product, cartId) {
+    async addToCart(product) {
         try {
-            const response = await axios.post(`${API_URL}add/${cartId}`, product, {
+            const response = await axios.post(`${API_URL}add`, product, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -32,6 +32,7 @@ class CartService {
             throw error;
         }
     }
+
 
     async removeFromCart(productId) {
         try {
