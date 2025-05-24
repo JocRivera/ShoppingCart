@@ -15,7 +15,7 @@ function CartItem({ item }) {
         <>
             <div className="flex items-center justify-between p-2 ">
                 <div className="flex items-center">
-                    <img src={item.thumbnail} alt={item.title} className="w-16 h-16 mr-4" />
+                    <img src={item.image} alt={item.tittle} className="w-16 h-16 mr-4" />
                     <div>
                         <h3 className="text-sm font-semibold">{item.tittle}</h3>
                         <p className="text-sm text-gray-500">${item.price}</p>
