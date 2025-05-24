@@ -58,7 +58,30 @@ export function CheckoutForm() {
             postalCode: "",
             phone: "",
         },
+        mode: "onChange", // Habilita validación en tiempo real al cambiar los campos
+
     })
+    const { formState } = form;
+    const { isValid, errors, touchedFields, dirtyFields } = formState;
+    const isCurrentStepValid = () => {
+        if (step === 1) {
+            // Lista de campos obligatorios para el paso 1
+            const requiredFields = ['fullName', 'email', 'address', 'city', 'postalCode', 'phone'];
+
+            // Verifica si todos los campos están llenos y sin errores
+            return requiredFields.every(field => {
+                // Un campo es válido si está "sucio" (se ha modificado) y no tiene errores
+                return dirtyFields[field] && !errors[field];
+            });
+        }
+
+        // Para el paso 2, puedes añadir validación específica si es necesario
+        if (step === 2) {
+            return true; // Modificar según necesidad con los campos de pago
+        }
+
+        return true; // Para el paso 3
+    };
 
     // 2. Función de envío
     const onSubmit = (values) => {
@@ -329,6 +352,7 @@ export function CheckoutForm() {
                     <Button
                         className={`${step > 1 ? 'ml-auto' : 'w-full'} bg-green-600 hover:bg-green-700 text-white`}
                         type="submit"
+                        disabled={!isCurrentStepValid()}
                     >
                         {step === 3 ? "Confirmar Pedido" : "Continuar"}
                     </Button>
