@@ -4,8 +4,18 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { useCart } from "@/context/cart"
 import { ShoppingCart, Plus, Minus } from "lucide-react";
+import CartService from "@/services/cart/fetch";
+import { CheckoutForm } from "../forms/CheckoutForm";
 function CartItem({ item }) {
     const { addToCart, removeFromCart, removeItemFromCart } = useCart()
     const handleAddToCart = (product) => {
@@ -40,6 +50,9 @@ function CartItem({ item }) {
 
 export default function OpenCart() {
     const { cart } = useCart()
+    const cartService = new CartService()
+
+    const handleCheckout = async () => { }
     return (
         <Popover >
             <PopoverTrigger >
@@ -65,6 +78,28 @@ export default function OpenCart() {
                         ))}
                     </div>
                 </div>
+                {cart.length > 0 && (
+                    <div className="p-4 border-t">
+                        <Dialog>
+                            <DialogTrigger className="w-full" ><Button
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                onClick={handleCheckout}>
+                                Proceder a la compra
+                            </Button></DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                    <DialogDescription>
+                                        This action cannot be undone. This will permanently delete your account
+                                        and remove your data from our servers.
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
+
+                    </div>
+                )}
+
             </PopoverContent>
         </Popover>
     );
