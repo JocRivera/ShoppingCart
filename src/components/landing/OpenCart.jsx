@@ -52,7 +52,9 @@ export default function OpenCart() {
     const { cart } = useCart()
     const cartService = new CartService()
 
-    const handleCheckout = async () => { }
+    const handleCheckout = async () => {
+        console.log("puto el que lo lea")
+    }
     return (
         <Popover >
             <PopoverTrigger >
@@ -88,10 +90,9 @@ export default function OpenCart() {
                             </Button></DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                    <DialogTitle>Información y Pago</DialogTitle>
                                     <DialogDescription>
-                                        This action cannot be undone. This will permanently delete your account
-                                        and remove your data from our servers.
+                                        <CheckoutForm />
                                     </DialogDescription>
                                 </DialogHeader>
                             </DialogContent>
