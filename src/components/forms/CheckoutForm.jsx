@@ -3,7 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import React from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -15,7 +16,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import { CheckCircle } from "lucide-react"
 // Esquema de validación
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -24,7 +25,7 @@ const formSchema = z.object({
 })
 
 export function CheckoutForm() {
-
+    const [step, setStep] = useState(1);
     // 1. Inicializar el formulario
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -42,6 +43,29 @@ export function CheckoutForm() {
     // 3. Retornar el formulario
     return (
         <Form {...form}>
+            {/* Progress Bar */}
+            <div className="flex items-center mb-5 mt-5">
+                <div className={`flex items-center ${step >= 1 ? 'text-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+                        {step > 1 ? <CheckCircle size={16} /> : '1'}
+                    </div>
+                    <span className="ml-2 text-sm font-medium">Envío</span>
+                </div>
+                <div className={`flex-1 h-1 mx-4 ${step >= 2 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                <div className={`flex items-center ${step >= 2 ? 'text-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+                        {step > 2 ? <CheckCircle size={16} /> : '2'}
+                    </div>
+                    <span className="ml-2 text-sm font-medium">Pago</span>
+                </div>
+                <div className={`flex-1 h-1 mx-4 ${step >= 3 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                <div className={`flex items-center ${step >= 3 ? 'text-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+                        {step > 3 ? <CheckCircle size={16} /> : '3'}
+                    </div>
+                    <span className="ml-2 text-sm font-medium">Confirmar</span>
+                </div>
+            </div>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
                 <FormField
                     control={form.control}
