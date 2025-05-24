@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input"
 import { CheckCircle, Truck, CreditCard } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Icons } from "@/components/icons"
-import { RadioGroup,RadioGroupItem} from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
@@ -204,14 +204,9 @@ export function CheckoutForm() {
                     <><div className="flex items-center mb-4">
                         <CreditCard className="mr-2 text-blue-600" size={20} />
                         <h3 className="text-lg font-semibold">Método de Pago</h3>
-                    </div><Card>
-                            <CardHeader>
-                                <CardTitle>Payment Method</CardTitle>
-                                <CardDescription>
-                                    Add a new payment method to your account.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent className="grid gap-6">
+                    </div>
+                        <Card className="border-0 shadow-none ">
+                            <CardContent className="grid gap-5">
                                 <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
                                     <div>
                                         <RadioGroupItem value="card" id="card" className="peer sr-only" />
@@ -311,9 +306,6 @@ export function CheckoutForm() {
                                     </div>
                                 </div>
                             </CardContent>
-                            <CardFooter>
-                                <Button className="w-full">Continue</Button>
-                            </CardFooter>
                         </Card></>
                 )}
 
