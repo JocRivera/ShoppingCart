@@ -16,28 +16,67 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { CheckCircle } from "lucide-react"
-// Esquema de validación
+import { CheckCircle, Truck, CreditCard } from "lucide-react"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Icons } from "@/components/icons"
+import { RadioGroup,RadioGroupItem} from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+// Esquema de validación expandido
 const formSchema = z.object({
-    username: z.string().min(2, {
-        message: "El nombre de usuario debe tener al menos 2 caracteres.",
+    fullName: z.string().min(2, {
+        message: "El nombre completo debe tener al menos 2 caracteres.",
+    }),
+    email: z.string().email({
+        message: "Por favor ingrese un correo electrónico válido.",
+    }),
+    address: z.string().min(5, {
+        message: "La dirección debe tener al menos 5 caracteres.",
+    }),
+    city: z.string().min(2, {
+        message: "La ciudad debe tener al menos 2 caracteres.",
+    }),
+    postalCode: z.string().min(5, {
+        message: "El código postal debe tener al menos 5 caracteres.",
+    }),
+    phone: z.string().min(8, {
+        message: "El número de teléfono debe tener al menos 8 caracteres.",
     }),
 })
 
 export function CheckoutForm() {
     const [step, setStep] = useState(1);
-    // 1. Inicializar el formulario
+    // 1. Inicializar el formulario con los campos expandidos
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            fullName: "",
+            email: "",
+            address: "",
+            city: "",
+            postalCode: "",
+            phone: "",
         },
     })
 
     // 2. Función de envío
     const onSubmit = (values) => {
         console.log("Datos del checkout:", values)
-        // Aquí puedes agregar lógica como enviar al backend, redireccionar, etc.
+        // Si estamos en el paso 1 o 2, avanzamos al siguiente paso
+        if (step < 3) {
+            setStep(step + 1);
+        } else {
+            // Aquí puedes agregar lógica como enviar al backend, redireccionar, etc.
+            console.log("Formulario completado:", values);
+        }
+    }
+
+    // Función para volver al paso anterior
+    const handleBack = () => {
+        if (step > 1) {
+            setStep(step - 1);
+        }
     }
 
     // 3. Retornar el formulario
@@ -66,79 +105,242 @@ export function CheckoutForm() {
                     <span className="ml-2 text-sm font-medium">Confirmar</span>
                 </div>
             </div>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
-                <FormField
-                    control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Nombre de usuario</FormLabel>
-                            <FormControl>
-                                <Input placeholder="shadcn" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                {step === 1 && (
+                    <div className="space-y-4">
+                        <div className="flex items-center mb-4">
+                            <Truck className="mr-2 text-blue-600" size={20} />
+                            <h3 className="text-lg font-semibold">Información de Envío</h3>
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="fullName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Nombre Completo</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Nombre y apellidos" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Correo Electrónico</FormLabel>
+                                    <FormControl>
+                                        <Input type="email" placeholder="ejemplo@correo.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="address"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Dirección</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Calle, número, colonia" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                                control={form.control}
+                                name="city"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Ciudad</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Ciudad" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="postalCode"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Código Postal</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Código Postal" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Teléfono</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Número telefónico" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                )}
+
+                {step === 2 && (
+                    <><div className="flex items-center mb-4">
+                        <CreditCard className="mr-2 text-blue-600" size={20} />
+                        <h3 className="text-lg font-semibold">Método de Pago</h3>
+                    </div><Card>
+                            <CardHeader>
+                                <CardTitle>Payment Method</CardTitle>
+                                <CardDescription>
+                                    Add a new payment method to your account.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent className="grid gap-6">
+                                <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
+                                    <div>
+                                        <RadioGroupItem value="card" id="card" className="peer sr-only" />
+                                        <Label
+                                            htmlFor="card"
+                                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                className="mb-3 h-6 w-6"
+                                            >
+                                                <rect width="20" height="14" x="2" y="5" rx="2" />
+                                                <path d="M2 10h20" />
+                                            </svg>
+                                            Card
+                                        </Label>
+                                    </div>
+                                    <div>
+                                        <RadioGroupItem
+                                            value="paypal"
+                                            id="paypal"
+                                            className="peer sr-only" />
+                                        <Label
+                                            htmlFor="paypal"
+                                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                        >
+                                            <Icons.paypal className="mb-3 h-6 w-6" />
+                                            Paypal
+                                        </Label>
+                                    </div>
+                                    <div>
+                                        <RadioGroupItem value="apple" id="apple" className="peer sr-only" />
+                                        <Label
+                                            htmlFor="apple"
+                                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                        >
+                                            <Icons.apple className="mb-3 h-6 w-6" />
+                                            Apple
+                                        </Label>
+                                    </div>
+                                </RadioGroup>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input id="name" placeholder="First Last" />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="number">Card number</Label>
+                                    <Input id="number" placeholder="" />
+                                </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="month">Expires</Label>
+                                        <Select>
+                                            <SelectTrigger id="month">
+                                                <SelectValue placeholder="Month" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="1">January</SelectItem>
+                                                <SelectItem value="2">February</SelectItem>
+                                                <SelectItem value="3">March</SelectItem>
+                                                <SelectItem value="4">April</SelectItem>
+                                                <SelectItem value="5">May</SelectItem>
+                                                <SelectItem value="6">June</SelectItem>
+                                                <SelectItem value="7">July</SelectItem>
+                                                <SelectItem value="8">August</SelectItem>
+                                                <SelectItem value="9">September</SelectItem>
+                                                <SelectItem value="10">October</SelectItem>
+                                                <SelectItem value="11">November</SelectItem>
+                                                <SelectItem value="12">December</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="year">Year</Label>
+                                        <Select>
+                                            <SelectTrigger id="year">
+                                                <SelectValue placeholder="Year" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Array.from({ length: 10 }, (_, i) => (
+                                                    <SelectItem key={i} value={`${new Date().getFullYear() + i}`}>
+                                                        {new Date().getFullYear() + i}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="cvc">CVC</Label>
+                                        <Input id="cvc" placeholder="CVC" />
+                                    </div>
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <Button className="w-full">Continue</Button>
+                            </CardFooter>
+                        </Card></>
+                )}
+
+                {step === 3 && (
+                    <div className="text-center">
+                        <h2 className="text-lg font-semibold">Confirmar Pedido</h2>
+                        {/* Aquí puedes mostrar un resumen del pedido */}
+                    </div>
+                )}
+
+                <div className="flex justify-between mt-6">
+                    {step > 1 && (
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleBack}
+                        >
+                            Volver
+                        </Button>
                     )}
-                />
-                {/* street */}
-                <FormField
-                    control={form.control}
-                    name="street"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Calle</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Calle 9 #13a-36" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                {/* city */}
-                <FormField
-                    control={form.control}
-                    name="city"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Ciudad</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Medellín" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                {/* country */}
-                <FormField
-                    control={form.control}
-                    name="country"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>País</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Colombía" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                {/* zip */}
-                <FormField
-                    control={form.control}
-                    name="zip"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Código Postal</FormLabel>
-                            <FormControl>
-                                <Input placeholder="50010" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button
-                    className="w-full bg-green-600 hover:bg-green-700 text-white mt-6"
-                    type="submit">Enviar</Button>
+                    <Button
+                        className={`${step > 1 ? 'ml-auto' : 'w-full'} bg-green-600 hover:bg-green-700 text-white`}
+                        type="submit"
+                    >
+                        {step === 3 ? "Confirmar Pedido" : "Continuar"}
+                    </Button>
+                </div>
             </form>
         </Form>
     )
