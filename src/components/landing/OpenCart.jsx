@@ -84,7 +84,7 @@ export default function OpenCart() {
                     <div className="p-4 border-t">
                         <Dialog>
                             <DialogTrigger className="w-full" ><Button
-                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                                 onClick={handleCheckout}>
                                 Proceder a la compra
                             </Button></DialogTrigger>

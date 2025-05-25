@@ -23,6 +23,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react'
 import { Loader2 } from "lucide-react"
 import OrderService from "@/services/order/fetch"
+import { useCart } from "@/context/cart";
 // Esquema de validación expandido
 const formSchema = z.object({
     fullName: z.string().min(2, {
@@ -55,6 +56,7 @@ const formSchema = z.object({
 const MERCADOPAGO_PUBLIC_KEY = 'NoHayTokenDePrueba';
 
 export function CheckoutForm() {
+    const { clearCart } = useCart();
     const [step, setStep] = useState(1);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -205,6 +207,7 @@ export function CheckoutForm() {
                     };
                     const orderService = new OrderService();
                     const order = await orderService.createOrder(orderData);
+                    clearCart();
                 } catch (error) {
                     console.error("Error al crear la orden:", error);
                 }
@@ -550,8 +553,8 @@ export function CheckoutForm() {
                 {step === 3 && (
                     <div className="space-y-4 p-6 border rounded-lg">
                         <div className="flex items-center justify-center mb-4">
-                            <CheckCircle className="text-green-500 mr-2" size={24} />
-                            <h2 className="text-xl font-semibold text-green-700">¡Pago Exitoso!</h2>
+                            <CheckCircle className="text-emerald-500 mr-2" size={24} />
+                            <h2 className="text-xl font-semibold text-emerald-700">¡Pago Exitoso!</h2>
                         </div>
                         <p className="text-center text-gray-700">
                             Tu pedido ha sido procesado con éxito. Hemos enviado un correo de confirmación a tu dirección de email.
@@ -584,7 +587,7 @@ export function CheckoutForm() {
 
                     {(step !== 2 || selectedPaymentMethod !== "mercadopago" || !preferenceId) && (
                         <Button
-                            className={`${step > 1 ? 'ml-auto' : 'w-full'} bg-green-600 hover:bg-green-700 text-white`}
+                            className={`${step > 1 ? 'ml-auto' : 'w-full'} bg-emerald-600 hover:bg-emerald-700 text-white`}
                             type="submit"
                             disabled={!isCurrentStepValid() || isProcessingPayment}
                         >
