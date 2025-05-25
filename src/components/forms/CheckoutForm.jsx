@@ -22,7 +22,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react'
 import { Loader2 } from "lucide-react"
-
+import OrderService from "@/services/order/fetch"
 // Esquema de validación expandido
 const formSchema = z.object({
     fullName: z.string().min(2, {
@@ -194,6 +194,23 @@ export function CheckoutForm() {
                 // Para otros métodos de pago (tarjeta, PayPal)
                 // Aquí implementarías tu lógica de procesamiento
                 console.log("Procesando pago con método:", selectedPaymentMethod);
+                try {
+                    const orderData = {
+    shippingAddress: {
+        street: form.getValues("address"),
+        city: form.getValues("city"),
+        zip: form.getValues("postalCode"),
+    },
+    paymentMethod: selectedPaymentMethod,
+};
+
+
+                    const orderService = new OrderService();
+                    const order = await orderService.createOrder(orderData);
+                    console.log("Orden creada:", order);
+                } catch (error) {
+                    console.error("Error al crear la orden:", error);
+                }
                 setStep(3); // Temporalmente avanzamos al paso 3
             }
         } else {
@@ -377,7 +394,7 @@ export function CheckoutForm() {
                                                     </Label>
                                                 </div>
                                                 <div>
-                                                    <RadioGroupItem value="paypal" id="paypal" className="peer sr-only" />
+                                                    <RadioGroupItem value="PayPal" id="paypal" className="peer sr-only" />
                                                     <Label
                                                         htmlFor="paypal"
                                                         className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -521,7 +538,7 @@ export function CheckoutForm() {
                                     </div>
                                 )}
 
-                                {selectedPaymentMethod === "paypal" && (
+                                {selectedPaymentMethod === "PayPal" && (
                                     <div className="p-4 border rounded-md bg-blue-50 text-center">
                                         <p className="mb-4">
                                             Al hacer clic en "Continuar", serás redirigido a PayPal para completar tu pago.
@@ -548,7 +565,7 @@ export function CheckoutForm() {
                                 <div>Número de Orden:</div>
                                 <div className="font-medium">ORD-{Math.floor(Math.random() * 10000)}</div>
                                 <div>Método de Pago:</div>
-                                <div className="font-medium">{selectedPaymentMethod === "mercadopago" ? "MercadoPago" : selectedPaymentMethod === "paypal" ? "PayPal" : "Tarjeta"}</div>
+                                <div className="font-medium">{selectedPaymentMethod === "mercadopago" ? "MercadoPago" : selectedPaymentMethod === "PayPal" ? "PayPal" : "Tarjeta"}</div>
                                 <div>Fecha:</div>
                                 <div className="font-medium">{new Date().toLocaleDateString()}</div>
                             </div>
