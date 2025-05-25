@@ -207,7 +207,7 @@ export function CheckoutForm() {
                     };
                     const orderService = new OrderService();
                     const order = await orderService.createOrder(orderData);
-                    clearCart();
+                    // clearCart();
                 } catch (error) {
                     console.error("Error al crear la orden:", error);
                 }
