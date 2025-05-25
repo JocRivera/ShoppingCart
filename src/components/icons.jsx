@@ -37,4 +37,17 @@ export const Icons = {
             />
         </svg>
     ),
+    mercadoPago: (props) => (
+        <svg
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+                d="M12.001 0C5.373 0 0 5.373 0 12s5.373 12 12.001 12C18.63 24 24 18.627 24 12S18.627 0 12.001 0zm-1.25 17.5H7.5v-1.25h3.25v1.25zm2.5-3.75H7.5v-1.25h6.25v1.25zm3.75-3.75H7.5V8h9.375v1.25z"
+                fill="currentColor"
+            />
+        </svg>
+    ),
 };

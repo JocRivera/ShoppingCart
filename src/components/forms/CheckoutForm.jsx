@@ -272,8 +272,8 @@ export function CheckoutForm() {
                                             htmlFor="apple"
                                             className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                                         >
-                                            <Icons.apple className="mb-3 h-6 w-6" />
-                                            Apple
+                                            <Icons.mercadoPago className="mb-3 h-6 w-6" />
+                                            MercadoPago
                                         </Label>
                                     </div>
                                 </RadioGroup>
