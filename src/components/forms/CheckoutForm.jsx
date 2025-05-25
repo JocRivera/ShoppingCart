@@ -52,7 +52,7 @@ const formSchema = z.object({
 })
 
 // Reemplaza esto con tu clave pública real de MercadoPago
-const MERCADOPAGO_PUBLIC_KEY = 'TEST-12345678-9abc-def0-1234-56789abcdef0';
+const MERCADOPAGO_PUBLIC_KEY = 'NoHayTokenDePrueba';
 
 export function CheckoutForm() {
     const [step, setStep] = useState(1);
