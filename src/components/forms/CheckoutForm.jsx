@@ -196,18 +196,15 @@ export function CheckoutForm() {
                 console.log("Procesando pago con método:", selectedPaymentMethod);
                 try {
                     const orderData = {
-    shippingAddress: {
-        street: form.getValues("address"),
-        city: form.getValues("city"),
-        zip: form.getValues("postalCode"),
-    },
-    paymentMethod: selectedPaymentMethod,
-};
-
-
+                        shippingAddress: {
+                            street: form.getValues("address"),
+                            city: form.getValues("city"),
+                            zip: form.getValues("postalCode"),
+                        },
+                        paymentMethod: selectedPaymentMethod,
+                    };
                     const orderService = new OrderService();
                     const order = await orderService.createOrder(orderData);
-                    console.log("Orden creada:", order);
                 } catch (error) {
                     console.error("Error al crear la orden:", error);
                 }
