@@ -16,6 +16,8 @@ import { useCart } from "@/context/cart"
 import { ShoppingCart, Plus, Minus } from "lucide-react";
 import CartService from "@/services/cart/fetch";
 import { CheckoutForm } from "../forms/CheckoutForm";
+import { useAuth } from "@/context/auth";
+import { OpenLogin } from "../dialog/OpenLogin";
 function CartItem({ item }) {
     const { addToCart, removeFromCart, removeItemFromCart } = useCart()
     const handleAddToCart = (product) => {
@@ -51,9 +53,23 @@ function CartItem({ item }) {
 export default function OpenCart() {
     const { cart } = useCart()
     const cartService = new CartService()
+    const { isAuthenticated } = useAuth()
 
-    const handleCheckout = async () => {
-        console.log("puto el que lo lea")
+    const renderCheckout = () => {
+        if (isAuthenticated) {
+            return (
+                <DialogTrigger className="w-full">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                        Proceder a la compra
+                    </Button>
+                </DialogTrigger>
+            );
+        } else {
+            return (<div className="flex flex-col items-center justify-center ">
+                <OpenLogin />
+                <p className="text-sm text-gray-500">Inicia sesión para proceder a la compra</p>
+            </div>);
+        }
     }
     return (
         <Popover >
@@ -83,11 +99,7 @@ export default function OpenCart() {
                 {cart.length > 0 && (
                     <div className="p-4 border-t">
                         <Dialog>
-                            <DialogTrigger className="w-full" ><Button
-                                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
-                                onClick={handleCheckout}>
-                                Proceder a la compra
-                            </Button></DialogTrigger>
+                            {renderCheckout()}
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>Información y Pago</DialogTitle>
