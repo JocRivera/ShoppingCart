@@ -79,6 +79,24 @@ export const AuthProvider = ({ children }) => {
             return error;
         }
     }
+
+    const signup = async (user) => {
+        try {
+            const response = await authService.Register(user.name, user.email, user.password);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.token}`;
+            Cookies.set('token', response.token, { expires: 1 });
+            setUser(response.user);
+            setIsAuthenticated(true);
+            setErrors([]);
+            console.log("User registered", response.token);
+            return response;
+        } catch (error) {
+            console.error('Registration error:', error);
+            setErrors([error.message]);
+            return error;
+        }
+    }
+
     const logout = async () => {
         try {
             await authService.Logout();
@@ -91,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signin, errors, loading, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signin, errors, loading, logout, signup }}>
             {children}
         </AuthContext.Provider>
     );

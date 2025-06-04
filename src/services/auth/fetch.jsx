@@ -42,6 +42,25 @@ class AuthService {
         }
     }
 
+    async Register(name, email, password) {
+        const data = {
+            name,
+            email,
+            password
+        };
+        try {
+            const response = await axios.post(`${API_URL}register`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Registration error:', error);
+            throw error;
+        }
+    }
+
     async Logout() {
         try {
             const response = await axios.post(`${API_URL}logout`, {

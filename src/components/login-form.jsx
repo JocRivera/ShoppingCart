@@ -11,7 +11,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/context/auth"
 import { useState } from "react"
-export function LoginForm({ className, ...props }) {
+
+export function LoginForm({ className, toggleForm = () => { }, ...props }) {
   const { signin, errors } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -19,7 +20,6 @@ export function LoginForm({ className, ...props }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await signin({ email, password })
-
   }
 
   return (
@@ -66,9 +66,12 @@ export function LoginForm({ className, ...props }) {
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <button
+                type="button"
+                onClick={toggleForm}
+                className="text-blue-600 underline underline-offset-4">
                 Sign up
-              </a>
+              </button>
             </div>
           </form>
         </CardContent>

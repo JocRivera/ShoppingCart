@@ -12,7 +12,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { UserRound } from "lucide-react";
 import { LoginForm } from "../login-form";
+import { RegisterForm } from "../register-form";
+import { useState } from "react";
+
 export function OpenLogin() {
+    const [showLogin, setShowLogin] = useState(true);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -21,7 +26,11 @@ export function OpenLogin() {
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
-                    <LoginForm />
+                {showLogin ? (
+                    <LoginForm toggleForm={() => setShowLogin(false)} />
+                ) : (
+                    <RegisterForm toggleForm={() => setShowLogin(true)} />
+                )}
                 <DialogFooter>
                 </DialogFooter>
             </DialogContent>
