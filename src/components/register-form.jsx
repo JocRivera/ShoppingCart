@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useAuth } from "@/context/auth"
 import { useState } from "react"
 
-export function RegisterForm({ className, toggleForm = () => { }, ...props }) {
+export function RegisterForm({ className, toggleForm = () => { }, onSuccess = () => { }, ...props }) {
   const { signup, errors } = useAuth()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -30,7 +30,12 @@ export function RegisterForm({ className, toggleForm = () => { }, ...props }) {
     }
 
     setPasswordError("")
-    await signup({ name, email, password })
+    const response = await signup({ name, email, password })
+
+    // Close the dialog if registration was successful
+    if (response && response.token) {
+      onSuccess()
+    }
   }
 
   return (

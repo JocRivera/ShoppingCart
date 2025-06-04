@@ -17,9 +17,14 @@ import { useState } from "react";
 
 export function OpenLogin() {
     const [showLogin, setShowLogin] = useState(true);
+    const [open, setOpen] = useState(false);
+
+    const handleSuccess = () => {
+        setOpen(false);
+    };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="ghost" size="icon">
                     <UserRound />
@@ -27,9 +32,9 @@ export function OpenLogin() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 {showLogin ? (
-                    <LoginForm toggleForm={() => setShowLogin(false)} />
+                    <LoginForm toggleForm={() => setShowLogin(false)} onSuccess={handleSuccess} />
                 ) : (
-                    <RegisterForm toggleForm={() => setShowLogin(true)} />
+                    <RegisterForm toggleForm={() => setShowLogin(true)} onSuccess={handleSuccess} />
                 )}
                 <DialogFooter>
                 </DialogFooter>

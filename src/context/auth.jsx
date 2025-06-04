@@ -93,6 +93,8 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Registration error:', error);
             setErrors([error.message]);
+            setIsAuthenticated(false);
+            setUser(null);
             return error;
         }
     }
