@@ -1,7 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../home/main.jsx';
-import { LoginForm } from '../components/login-form';
-import { RegisterForm } from '../components/register-form';
 
 const PublicRoutes = () => {
     return (

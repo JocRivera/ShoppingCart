@@ -11,7 +11,12 @@ export default function Navbar() {
                 case 'admin':
                     return <ProfileButton />;
                 case 'user':
-                    return <ProfileButton />;
+                    return (
+                        <>
+                            <ProfileButton />
+                            <OpenCart />
+                        </>
+                    )
                 default:
                     return null;
             }
@@ -42,7 +47,6 @@ export default function Navbar() {
                 </div>
                 <ul className="flex space-x-4">
                     {renderAuth()}
-                    <OpenCart />
                 </ul>
             </div>
         </nav>
