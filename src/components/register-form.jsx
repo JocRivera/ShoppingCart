@@ -32,9 +32,12 @@ export function RegisterForm({ className, toggleForm = () => { }, onSuccess = ()
     setPasswordError("")
     const response = await signup({ name, email, password })
 
-    // Close the dialog if registration was successful
+    // Close the dialog if login was successful
     if (response && response.token) {
-      onSuccess()
+      onSuccess(); // Cierra el modal
+      setTimeout(() => {
+        window.location.reload(); // Recarga la página después de un breve retraso
+      }, 100);
     }
   }
 
