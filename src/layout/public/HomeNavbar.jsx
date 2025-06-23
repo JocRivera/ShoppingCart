@@ -3,13 +3,18 @@ import { Gem } from "lucide-react";
 import { useAuth } from "../../context/auth.jsx";
 import { OpenLogin } from "@/components/dialog/OpenLogin";
 import ProfileButton from "@/components/profile/ProfileButton";
+import { Notification } from "@/components/utils/Notification.jsx";
 export default function Navbar() {
     const { user, isAuthenticated } = useAuth();
     const renderAuth = () => {
         if (isAuthenticated && user) {
             switch (user.role) {
                 case 'admin':
-                    return <ProfileButton />;
+                    return <>
+                        <ProfileButton />
+                        <Notification />
+                    </>
+
                 case 'user':
                     return (
                         <>
