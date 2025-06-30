@@ -38,6 +38,7 @@ export default function CardProduct({ products }) {
     return (
         <div className="container mx-auto px-4 py-4">
             <Carousel
+                className="z-0"
                 responsive={responsive}
                 infinite={true}
                 autoPlay={true}

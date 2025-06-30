@@ -4,8 +4,20 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { useCart } from "@/context/cart"
 import { ShoppingCart, Plus, Minus } from "lucide-react";
+import CartService from "@/services/cart/fetch";
+import { CheckoutForm } from "../forms/CheckoutForm";
+import { useAuth } from "@/context/auth";
+import { OpenLogin } from "../dialog/OpenLogin";
 function CartItem({ item }) {
     const { addToCart, removeFromCart, removeItemFromCart } = useCart()
     const handleAddToCart = (product) => {
@@ -15,7 +27,7 @@ function CartItem({ item }) {
         <>
             <div className="flex items-center justify-between p-2 ">
                 <div className="flex items-center">
-                    <img src={item.thumbnail} alt={item.title} className="w-16 h-16 mr-4" />
+                    <img src={item.image} alt={item.tittle} className="w-16 h-16 mr-4" />
                     <div>
                         <h3 className="text-sm font-semibold">{item.tittle}</h3>
                         <p className="text-sm text-gray-500">${item.price}</p>
@@ -40,6 +52,25 @@ function CartItem({ item }) {
 
 export default function OpenCart() {
     const { cart } = useCart()
+    const cartService = new CartService()
+    const { isAuthenticated } = useAuth()
+
+    const renderCheckout = () => {
+        if (isAuthenticated) {
+            return (
+                <DialogTrigger className="w-full">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                        Proceder a la compra
+                    </Button>
+                </DialogTrigger>
+            );
+        } else {
+            return (<div className="flex flex-col items-center justify-center ">
+                <OpenLogin />
+                <p className="text-sm text-gray-500">Inicia sesión para proceder a la compra</p>
+            </div>);
+        }
+    }
     return (
         <Popover >
             <PopoverTrigger >
@@ -65,6 +96,23 @@ export default function OpenCart() {
                         ))}
                     </div>
                 </div>
+                {cart.length > 0 && (
+                    <div className="p-4 border-t">
+                        <Dialog>
+                            {renderCheckout()}
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Información y Pago</DialogTitle>
+                                    <DialogDescription>
+                                        <CheckoutForm />
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
+
+                    </div>
+                )}
+
             </PopoverContent>
         </Popover>
     );
