@@ -68,6 +68,11 @@ export function Notification() {
                                     <p className="text-sm text-gray-700">
                                         {notification.message}
                                     </p>
+                                    {notification.details && (
+                                        <button onClick={() => console.log(notification.details)} className="text-xs text-blue-500 underline">
+                                            Ver detalles
+                                        </button>
+                                    )}
                                 </div>
                             ))
                         ) : (
