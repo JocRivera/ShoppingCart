@@ -52,6 +52,7 @@ export default function Navbar() {
                 </div>
                 <ul className="flex space-x-4">
                     {renderAuth()}
+                    <OpenCart/>
                 </ul>
             </div>
         </nav>
