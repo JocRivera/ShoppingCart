@@ -166,16 +166,16 @@ export function CheckoutForm() {
             currency_id: "ARS", // Cambia según tu moneda (ARS, MXN, USD, etc.)
             payer: {
               name: values.fullName,
-              email: values.email,
+              email: "test_user_7368751134657201012@testuser.com",
               address: {
                 street_name: values.address,
                 zip_code: values.postalCode,
               },
             },
             back_urls: {
-              success: "http://localhost:5173/",
-              failure: "http://localhost:5173/",
-              pending: "http://localhost:5173/",
+              success: "http://localhost:5173/checkout/success", // <--- Tu frontend leerá esto
+            failure: "http://localhost:5173/checkout/failure",
+            pending: "http://localhost:5173/checkout/pending",
             },
             auto_return: "approved",
           }),
@@ -199,43 +199,69 @@ export function CheckoutForm() {
     setStep(3); // Avanzar al paso final
   };
 
-// 4. Función de envío del formulario
-  const onSubmit = async (values) => {
+ const onSubmit = async (values) => {
     if (step === 1) {
-      setStep(2); // Siempre avanza al paso 2 (selección de método de pago)
-      // Si el método es Mercado Pago, crea la preferencia y redirige.
-      // No avanzamos a setStep(3) aquí, la redirección de MP lo hará.
+      setStep(2); // Avanza al paso de pago
       if (selectedPaymentMethod === "mercadopago") {
         console.log("Creando preferencia de pago de MercadoPago...");
         const prefId = await createPreference(values);
-        // La redirección a Mercado Pago ocurre dentro de createPreference ahora
-        // No hay más lógica aquí para Mercado Pago.
+        console.log("Preference ID recibido:", prefId);
+        if (prefId) {
+          setPreferenceId(prefId);
+          // ¡Aquí es donde la lógica cambia!
+          // Ahora, el `preferenceId` se pasa al componente <Wallet />,
+          // el cual se renderizará y mostrará el botón amarillo.
+          // La redirección a Mercado Pago sucederá cuando el usuario haga clic en ese botón.
+          // NO HAY setStep(3) AQUÍ. La transición al Paso 3 ocurrirá
+          // cuando Mercado Pago redirija al usuario a la SUCCESS_URL.
+        } else {
+          alert(
+            "Hubo un error al procesar el pago. Por favor intenta de nuevo."
+          );
+        }
+      } else { // Si no es MercadoPago, procede con la lógica actual
+        console.log("Procesando pago con método:", selectedPaymentMethod);
+        try {
+            const orderData = {
+                shippingAddress: {
+                    street: form.getValues("address"),
+                    city: form.getValues("city"),
+                    zip: form.getValues("postalCode"),
+                },
+                paymentMethod: selectedPaymentMethod,
+            };
+            const orderService = new OrderService();
+            const order = await orderService.createOrder(orderData);
+            // clearCart();
+        } catch (error) {
+            console.error("Error al crear la orden:", error);
+        }
+        setStep(3); // Avanza al paso 3 solo para otros métodos
       }
-      // Si el método es tarjeta o PayPal, la lógica actual seguirá avanzando a paso 3
-      // Esto es algo que querrás refactorizar para esperar la confirmación real de esos pagos también.
     } else if (step === 2 && selectedPaymentMethod !== "mercadopago") {
-      // Esta lógica solo se ejecutará si el método NO es MercadoPago
-      console.log("Procesando pago con método:", selectedPaymentMethod);
-      try {
-        const orderData = {
-          shippingAddress: {
-            street: form.getValues("address"),
-            city: form.getValues("city"),
-            zip: form.getValues("postalCode"),
-          },
-          paymentMethod: selectedPaymentMethod,
-        };
-        const orderService = new OrderService();
-        const order = await orderService.createOrder(orderData);
-        // clearCart(); // Puedes descomentar esto cuando la orden se cree con éxito
-        setStep(3); // Avanza al paso 3 solo para métodos NO Mercado Pago
-      } catch (error) {
-        console.error("Error al crear la orden:", error);
-        alert("Hubo un error al crear la orden. Intenta de nuevo.");
-      }
+        // Esta parte es para la lógica de otros métodos de pago que no sean MP
+        // (ej. tarjeta de crédito directamente en tu sitio, PayPal)
+        // No se ejecutará para MercadoPago después de los cambios anteriores.
+        console.log("Procesando pago con método:", selectedPaymentMethod);
+        try {
+            const orderData = {
+                shippingAddress: {
+                    street: form.getValues("address"),
+                    city: form.getValues("city"),
+                    zip: form.getValues("postalCode"),
+                },
+                paymentMethod: selectedPaymentMethod,
+            };
+            const orderService = new OrderService();
+            const order = await orderService.createOrder(orderData);
+            // clearCart();
+        } catch (error) {
+            console.error("Error al crear la orden:", error);
+        }
+        setStep(3);
     }
-    // NOTA: Para Mercado Pago, la transición al paso 3 (pago exitoso)
-    // ocurrirá cuando el usuario regrese de la URL de éxito de Mercado Pago.
+    // NOTA FINAL: El paso 3 para MercadoPago se activará cuando el usuario
+    // regrese de la URL de éxito de Mercado Pago.
   };
 
   // Función para volver al paso anterior
