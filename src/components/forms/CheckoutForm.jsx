@@ -53,7 +53,7 @@ const formSchema = z.object({
 })
 
 // Reemplaza esto con tu clave pública real de MercadoPago
-const MERCADOPAGO_PUBLIC_KEY = 'APP_USR-957fb2b4-594f-4902-b479-e4ac8f3e6606';
+const MERCADOPAGO_PUBLIC_KEY = 'APP_USR-9193559a-c400-417e-a283-7a78b9326c81';
 
 export function CheckoutForm() {
   const { clearCart } = useCart();
@@ -172,6 +172,12 @@ export function CheckoutForm() {
                 zip_code: values.postalCode,
               },
             },
+            back_urls: {
+              success: "http://localhost:5173/",
+              failure: "http://localhost:5173/",
+              pending: "http://localhost:5173/",
+            },
+            auto_return: "approved",
           }),
         }
       );
@@ -193,31 +199,22 @@ export function CheckoutForm() {
     setStep(3); // Avanzar al paso final
   };
 
-  // 4. Función de envío del formulario
+// 4. Función de envío del formulario
   const onSubmit = async (values) => {
     if (step === 1) {
-      // Avanzar al paso de pago
-      setStep(2);
+      setStep(2); // Siempre avanza al paso 2 (selección de método de pago)
+      // Si el método es Mercado Pago, crea la preferencia y redirige.
+      // No avanzamos a setStep(3) aquí, la redirección de MP lo hará.
       if (selectedPaymentMethod === "mercadopago") {
-        // Si es MercadoPago, creamos la preferencia de pago
         console.log("Creando preferencia de pago de MercadoPago...");
         const prefId = await createPreference(values);
-        console.log("Preference ID recibido:", prefId);
-        if (prefId) {
-          console.log("Preferencia creada con ID:", prefId);
-          setPreferenceId(prefId);
-          // El botón de pago de MercadoPago se mostrará y manejará el flujo
-          // Nuestro componente esperará que el usuario complete el pago
-        } else {
-          // Manejar error al crear preferencia
-          alert(
-            "Hubo un error al procesar el pago. Por favor intenta de nuevo."
-          );
-        }
+        // La redirección a Mercado Pago ocurre dentro de createPreference ahora
+        // No hay más lógica aquí para Mercado Pago.
       }
-    } else if (step === 2) {
-      // Para otros métodos de pago (tarjeta, PayPal)
-      // Aquí implementarías tu lógica de procesamiento
+      // Si el método es tarjeta o PayPal, la lógica actual seguirá avanzando a paso 3
+      // Esto es algo que querrás refactorizar para esperar la confirmación real de esos pagos también.
+    } else if (step === 2 && selectedPaymentMethod !== "mercadopago") {
+      // Esta lógica solo se ejecutará si el método NO es MercadoPago
       console.log("Procesando pago con método:", selectedPaymentMethod);
       try {
         const orderData = {
@@ -230,15 +227,15 @@ export function CheckoutForm() {
         };
         const orderService = new OrderService();
         const order = await orderService.createOrder(orderData);
-        // clearCart();
+        // clearCart(); // Puedes descomentar esto cuando la orden se cree con éxito
+        setStep(3); // Avanza al paso 3 solo para métodos NO Mercado Pago
       } catch (error) {
         console.error("Error al crear la orden:", error);
+        alert("Hubo un error al crear la orden. Intenta de nuevo.");
       }
-      setStep(3); // Temporalmente avanzamos al paso 3
     }
-    // Paso final: completar la orden
-    console.log("Orden completada:", values);
-    // Aquí puedes implementar la redirección a una página de éxito, etc.
+    // NOTA: Para Mercado Pago, la transición al paso 3 (pago exitoso)
+    // ocurrirá cuando el usuario regrese de la URL de éxito de Mercado Pago.
   };
 
   // Función para volver al paso anterior
@@ -432,6 +429,7 @@ export function CheckoutForm() {
                             value="card"
                             id="card"
                             className="peer sr-only"
+                            disabled={true}
                           />
                           <Label
                             htmlFor="card"
@@ -458,6 +456,7 @@ export function CheckoutForm() {
                             value="PayPal"
                             id="paypal"
                             className="peer sr-only"
+                            disabled={true}
                           />
                           <Label
                             htmlFor="paypal"
