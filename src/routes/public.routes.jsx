@@ -8,10 +8,8 @@ const PublicRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/checkout" element={<CheckoutForm />} />
-      {/* AQUÍ ES DONDE DEFINES LA RUTA PARA LA REDIRECCIÓN DE MP */}
       <Route path="/checkout/success" element={<CheckoutSuccess />} />
-      <Route path="/checkout/failure" element={<div>Pago Fallido</div>} /> {/* O un componente para fallo */}
+      <Route path="/checkout/failure" element={<Home />} />
       <Route path="/checkout/pending" element={<div>Pago Pendiente</div>} /> {/* O un componente para pendiente */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/auth/'; // Replace with your API URL
+const API_URL = 'https://r6q0x0dq-3000.use2.devtunnels.ms/api/auth/'; // Replace with your API URL
 
 class AuthService {
 

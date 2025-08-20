@@ -1,59 +1,65 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import React, { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { CheckCircle, Truck, CreditCard } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Icons } from "@/components/icons"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-import { Loader2 } from "lucide-react"
-import OrderService from "@/services/order/fetch"
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { CheckCircle, Truck, CreditCard } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Icons } from "@/components/icons";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { Loader2 } from "lucide-react";
+import OrderService from "@/services/order/fetch";
 import { useCart } from "@/context/cart";
 // Esquema de validación expandido
 const formSchema = z.object({
-    fullName: z.string().min(2, {
-        message: "El nombre completo debe tener al menos 2 caracteres.",
-    }),
-    email: z.string().email({
-        message: "Por favor ingrese un correo electrónico válido.",
-    }),
-    address: z.string().min(5, {
-        message: "La dirección debe tener al menos 5 caracteres.",
-    }),
-    city: z.string().min(2, {
-        message: "La ciudad debe tener al menos 2 caracteres.",
-    }),
-    postalCode: z.string().min(5, {
-        message: "El código postal debe tener al menos 5 caracteres.",
-    }),
-    phone: z.string().min(8, {
-        message: "El número de teléfono debe tener al menos 8 caracteres.",
-    }),
-    paymentMethod: z.string().optional(),
-    cardholderName: z.string().optional(),
-    cardNumber: z.string().optional(),
-    cardExpMonth: z.string().optional(),
-    cardExpYear: z.string().optional(),
-    cardCvc: z.string().optional(),
-})
+  fullName: z.string().min(2, {
+    message: "El nombre completo debe tener al menos 2 caracteres.",
+  }),
+  email: z.string().email({
+    message: "Por favor ingrese un correo electrónico válido.",
+  }),
+  address: z.string().min(5, {
+    message: "La dirección debe tener al menos 5 caracteres.",
+  }),
+  city: z.string().min(2, {
+    message: "La ciudad debe tener al menos 2 caracteres.",
+  }),
+  postalCode: z.string().min(5, {
+    message: "El código postal debe tener al menos 5 caracteres.",
+  }),
+  phone: z.string().min(8, {
+    message: "El número de teléfono debe tener al menos 8 caracteres.",
+  }),
+  paymentMethod: z.string().optional(),
+  cardholderName: z.string().optional(),
+  cardNumber: z.string().optional(),
+  cardExpMonth: z.string().optional(),
+  cardExpYear: z.string().optional(),
+  cardCvc: z.string().optional(),
+});
 
 // Reemplaza esto con tu clave pública real de MercadoPago
-const MERCADOPAGO_PUBLIC_KEY = 'APP_USR-9193559a-c400-417e-a283-7a78b9326c81';
+const MERCADOPAGO_PUBLIC_KEY = "APP_USR-9193559a-c400-417e-a283-7a78b9326c81";
 
 export function CheckoutForm() {
   const { clearCart } = useCart();
@@ -153,7 +159,7 @@ export function CheckoutForm() {
 
       // Esta llamada se debe hacer al backend para no exponer tu clave secreta
       const response = await fetch(
-        "http://localhost:3000/api/payments/create",
+        "https://r6q0x0dq-3000.use2.devtunnels.ms/api/payments/create",
         {
           method: "POST",
           headers: {
@@ -174,8 +180,8 @@ export function CheckoutForm() {
             },
             back_urls: {
               success: "http://localhost:5173/checkout/success", // <--- Tu frontend leerá esto
-            failure: "http://localhost:5173/checkout/failure",
-            pending: "http://localhost:5173/checkout/pending",
+              failure: "http://localhost:5173/checkout/failure",
+              pending: "http://localhost:5173/checkout/pending",
             },
             auto_return: "approved",
           }),
@@ -199,66 +205,69 @@ export function CheckoutForm() {
     setStep(3); // Avanzar al paso final
   };
 
- const onSubmit = async (values) => {
+  const onSubmit = async (values) => {
     if (step === 1) {
       setStep(2); // Avanza al paso de pago
       if (selectedPaymentMethod === "mercadopago") {
-        console.log("Creando preferencia de pago de MercadoPago...");
+        const shippingAddressData = {
+          street: values.address,
+          city: values.city,
+          zip: values.postalCode,
+          // ...otros campos
+        };
+        // ⭐ Guarda la dirección en localStorage ANTES de la redirección a MP
+        localStorage.setItem(
+          "tempShippingAddress",
+          JSON.stringify(shippingAddressData)
+        );
         const prefId = await createPreference(values);
-        console.log("Preference ID recibido:", prefId);
         if (prefId) {
           setPreferenceId(prefId);
-          // ¡Aquí es donde la lógica cambia!
-          // Ahora, el `preferenceId` se pasa al componente <Wallet />,
-          // el cual se renderizará y mostrará el botón amarillo.
-          // La redirección a Mercado Pago sucederá cuando el usuario haga clic en ese botón.
-          // NO HAY setStep(3) AQUÍ. La transición al Paso 3 ocurrirá
-          // cuando Mercado Pago redirija al usuario a la SUCCESS_URL.
         } else {
           alert(
             "Hubo un error al procesar el pago. Por favor intenta de nuevo."
           );
         }
-      } else { // Si no es MercadoPago, procede con la lógica actual
-        console.log("Procesando pago con método:", selectedPaymentMethod);
+      } else {
+        // Si no es MercadoPago, procede con la lógica actual
         try {
-            const orderData = {
-                shippingAddress: {
-                    street: form.getValues("address"),
-                    city: form.getValues("city"),
-                    zip: form.getValues("postalCode"),
-                },
-                paymentMethod: selectedPaymentMethod,
-            };
-            const orderService = new OrderService();
-            const order = await orderService.createOrder(orderData);
-            // clearCart();
+          const orderData = {
+            shippingAddress: {
+              street: form.getValues("address"),
+              city: form.getValues("city"),
+              zip: form.getValues("postalCode"),
+            },
+            paymentMethod: selectedPaymentMethod,
+          };
+          const orderService = new OrderService();
+          const order = await orderService.createOrder(orderData);
+          clearCart();
         } catch (error) {
-            console.error("Error al crear la orden:", error);
+          console.error("Error al crear la orden:", error);
         }
         setStep(3); // Avanza al paso 3 solo para otros métodos
       }
     } else if (step === 2 && selectedPaymentMethod !== "mercadopago") {
-        // Esta parte es para la lógica de otros métodos de pago que no sean MP
-        // (ej. tarjeta de crédito directamente en tu sitio, PayPal)
-        // No se ejecutará para MercadoPago después de los cambios anteriores.
-        console.log("Procesando pago con método:", selectedPaymentMethod);
-        try {
-            const orderData = {
-                shippingAddress: {
-                    street: form.getValues("address"),
-                    city: form.getValues("city"),
-                    zip: form.getValues("postalCode"),
-                },
-                paymentMethod: selectedPaymentMethod,
-            };
-            const orderService = new OrderService();
-            const order = await orderService.createOrder(orderData);
-            // clearCart();
-        } catch (error) {
-            console.error("Error al crear la orden:", error);
-        }
-        setStep(3);
+      // Esta parte es para la lógica de otros métodos de pago que no sean MP
+      // (ej. tarjeta de crédito directamente en tu sitio, PayPal)
+      // No se ejecutará para MercadoPago después de los cambios anteriores.
+      console.log("Procesando pago con método:", selectedPaymentMethod);
+      try {
+        const orderData = {
+          shippingAddress: {
+            street: form.getValues("address"),
+            city: form.getValues("city"),
+            zip: form.getValues("postalCode"),
+          },
+          paymentMethod: selectedPaymentMethod,
+        };
+        const orderService = new OrderService();
+        const order = await orderService.createOrder(orderData);
+        // clearCart();
+      } catch (error) {
+        console.error("Error al crear la orden:", error);
+      }
+      setStep(3);
     }
     // NOTA FINAL: El paso 3 para MercadoPago se activará cuando el usuario
     // regrese de la URL de éxito de Mercado Pago.
@@ -482,7 +491,7 @@ export function CheckoutForm() {
                             value="PayPal"
                             id="paypal"
                             className="peer sr-only"
-                            disabled={true}
+                            disabled={false}
                           />
                           <Label
                             htmlFor="paypal"
