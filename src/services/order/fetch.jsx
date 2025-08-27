@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/orders/'; // Replace with your API URL
+const API_URL = import.meta.env.VITE_BACK_URL +'api/orders/'; // Replace with your API URL
 
 class OrderService {
     async createOrder(orderData) {
