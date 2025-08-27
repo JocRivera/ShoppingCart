@@ -499,7 +499,7 @@ export function CheckoutForm() {
                             value="PayPal"
                             id="paypal"
                             className="peer sr-only"
-                            disabled={false}
+                            disabled={true}
                           />
                           <Label
                             htmlFor="paypal"

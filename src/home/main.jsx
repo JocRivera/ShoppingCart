@@ -37,11 +37,11 @@ export default function Home() {
                 </h1>
                 <CardProduct products={filteredProducts} />
             </div>
-            <div className="w-full h-[300px] overflow-hidden relative">
+            {/* <div className="w-full h-[300px] overflow-hidden relative">
                 <h1 className=" cursor-pointer text-black text-5xl font-extrabold text-center pt-20  uppercase tracking-wide transform transition duration-500 hover:scale-110 hover:text-rose-300">
                     Nuevas colecciones
                 </h1>
-            </div>
+            </div> */}
         </>
     );
 }
