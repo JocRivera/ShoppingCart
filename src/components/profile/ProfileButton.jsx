@@ -21,7 +21,7 @@ export default function ProfileButton() {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar className="ring-2 ring-green-500 ring-offset-[2px] ring-offset-background">
-                    <AvatarImage src="https://avatars.githubusercontent.com/u/149016549?s=400&u=dec0096a1f6918203580f4292f3d7bd910bde7e9&v=4" />
+                    <AvatarImage src="https://cdn.jsdelivr.net/gh/alohe/avatars/png/notion_8.png" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
