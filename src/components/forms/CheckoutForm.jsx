@@ -62,7 +62,7 @@ const formSchema = z.object({
 const MERCADOPAGO_PUBLIC_KEY = "APP_USR-9193559a-c400-417e-a283-7a78b9326c81";
 
 export function CheckoutForm() {
-  const { clearCart } = useCart();
+  const { clearCart, cart } = useCart();
   const [step, setStep] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState("mercadopago");
@@ -154,22 +154,27 @@ export function CheckoutForm() {
 
   // 2. Función para crear preferencia de pago de MercadoPago
   const createPreference = async (values) => {
+    console.log(cart);
+
+    const items = cart.map((product) => ({
+      title: product.tittle,
+      quantity: product.quantity || 1,
+      unit_price: parseFloat(product.price),
+    }));
+
     try {
       setIsProcessingPayment(true);
 
       // Esta llamada se debe hacer al backend para no exponer tu clave secreta
       const response = await fetch(
-        "https://r6q0x0dq-3000.use2.devtunnels.ms/api/payments/create",
+        import.meta.env.VITE_BACK_URL + "api/payments/create",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            description: "Compra en Mi Tienda",
-            price: 100.0, // Reemplaza con el valor real de la compra
-            quantity: 1,
-            currency_id: "ARS", // Cambia según tu moneda (ARS, MXN, USD, etc.)
+            items: items,
             payer: {
               name: values.fullName,
               email: "test_user_7368751134657201012@testuser.com",
@@ -179,9 +184,12 @@ export function CheckoutForm() {
               },
             },
             back_urls: {
-              success: "http://localhost:5173/checkout/success", // <--- Tu frontend leerá esto
-              failure: "http://localhost:5173/checkout/failure",
-              pending: "http://localhost:5173/checkout/pending",
+              success:
+                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/success", // <--- Tu frontend leerá esto
+              failure:
+                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/failure",
+              pending:
+                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/pending",
             },
             auto_return: "approved",
           }),
@@ -240,7 +248,7 @@ export function CheckoutForm() {
             paymentMethod: selectedPaymentMethod,
           };
           const orderService = new OrderService();
-          const order = await orderService.createOrder(orderData);
+          await orderService.createOrder(orderData);
           clearCart();
         } catch (error) {
           console.error("Error al crear la orden:", error);
@@ -262,7 +270,7 @@ export function CheckoutForm() {
           paymentMethod: selectedPaymentMethod,
         };
         const orderService = new OrderService();
-        const order = await orderService.createOrder(orderData);
+        await orderService.createOrder(orderData);
         // clearCart();
       } catch (error) {
         console.error("Error al crear la orden:", error);

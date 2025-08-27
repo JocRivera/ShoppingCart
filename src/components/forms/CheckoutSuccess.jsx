@@ -50,7 +50,7 @@ export function CheckoutSuccess() {
         try {
           // Llama a tu backend para verificar el pago y crear la orden
           const response = await fetch(
-            "https://r6q0x0dq-3000.use2.devtunnels.ms/api/orders/create-from-mercadopago", // <--- TU ENDPOINT DE BACKEND
+            import.meta.env.VITE_BACK_URL +"api/orders/create-from-mercadopago", // <--- TU ENDPOINT DE BACKEND
             {
               method: "POST",
               headers: {

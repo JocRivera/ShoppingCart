@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://r6q0x0dq-3000.use2.devtunnels.ms/api/products/';
+const API_URL = import.meta.env.VITE_BACK_URL +'api/products/';
 
 class ProductService {
     async getProducts() {

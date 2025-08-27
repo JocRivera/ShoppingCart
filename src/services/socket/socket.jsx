@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://r6q0x0dq-3000.use2.devtunnels.ms';
+const SOCKET_URL = import.meta.env.VITE_BACK_URL;
 let socket;
 
 export const initSocket = (token) => {
