@@ -185,11 +185,11 @@ export function CheckoutForm() {
             },
             back_urls: {
               success:
-                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/success", // <--- Tu frontend leerá esto
+                import.meta.env.VITE_FRONT_URL + "checkout/success", // <--- Tu frontend leerá esto
               failure:
-                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/failure",
+                import.meta.env.VITE_FRONT_URL + "checkout/failure",
               pending:
-                "https://r6q0x0dq-5173.use2.devtunnels.ms/checkout/pending",
+                import.meta.env.VITE_FRONT_URL + "checkout/pending",
             },
             auto_return: "approved",
           }),
