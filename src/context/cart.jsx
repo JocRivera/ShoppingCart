@@ -121,6 +121,30 @@ export const CartProvider = ({ children }) => {
         setCart([]);
     }
 
+    const getFromLocalStorage = () => {
+        const localCart = localStorage.getItem("cart");
+        return localCart ? JSON.parse(localCart) : [];
+    };
+
+    const syncLocalStorageToState = async () => {
+    const localCart = getFromLocalStorage();
+    debugger
+    if (localCart.length > 0 && user) {
+        try {
+            const response = await cartService.syncCart(localCart.map(item => ({
+                productId: item._id,
+                quantity: item.quantity
+            })));
+            setCart(response.products || []);
+            localStorage.removeItem("cart"); // ya está sincronizado en el servidor
+        } catch (error) {
+            console.error("Error syncing local storage to server:", error);
+        }
+    }
+};
+
+
+
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, removeItemFromCart }}>
             {children}
