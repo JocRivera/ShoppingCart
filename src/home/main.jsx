@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useFilters } from "@/hooks/useFilters";
 import ProductService from "@/services/product/fetch";
 import { useEffect } from "react";
+import Footer from "./footer";
 export default function Home() {
     const [products, setProducts] = useState([]);
     const { filters, filterProducts } = useFilters();
@@ -42,6 +43,8 @@ export default function Home() {
                     Nuevas colecciones
                 </h1>
             </div> */}
+            {/* footer */}
+            <Footer />
         </>
     );
 }
