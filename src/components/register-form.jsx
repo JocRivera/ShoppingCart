@@ -45,16 +45,16 @@ export function RegisterForm({ className, toggleForm = () => { }, onSuccess = ()
     (<div className={cn("flex flex-col gap-7", className)} {...props}>
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Create an account</CardTitle>
+          <CardTitle>Crear una cuenta</CardTitle>
           <CardDescription>
-            Enter your details below to create your account
+            Ingresa tus datos a continuación para crear tu cuenta
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">Nombre completo</Label>
                 <Input
                   id="name"
                   type="text"
@@ -69,14 +69,14 @@ export function RegisterForm({ className, toggleForm = () => { }, onSuccess = ()
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="ejemplo@tudominio.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <Input
                   id="password"
                   type="password"
@@ -86,7 +86,7 @@ export function RegisterForm({ className, toggleForm = () => { }, onSuccess = ()
                 />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -100,20 +100,22 @@ export function RegisterForm({ className, toggleForm = () => { }, onSuccess = ()
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
-                  Create Account
+                  Crear una cuenta
                 </Button>
-                <Button type="button" variant="outline" className="w-full">
-                  Sign Up with Google
+                <Button type="button" variant="outline" className="w-full"
+                disabled={true}
+                >
+                  Regístrate con Google
                 </Button>
               </div>
             </div>
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              ¿Ya tienes una cuenta?{" "}
               <button
                 type="button"
                 onClick={toggleForm}
                 className="text-blue-600 underline underline-offset-4">
-                Login
+                Iniciar sesión
               </button>
             </div>
           </form>
