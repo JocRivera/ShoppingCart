@@ -62,6 +62,21 @@ class CartService {
             throw error;
         }
     }
+
+    async syncCart(cartItems) {
+        try {
+            const response = await axios.post(`${API_URL}sync`, { products: cartItems }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error syncing cart:', error);
+            throw error;
+        }
+    }
 }
 
 export default CartService;

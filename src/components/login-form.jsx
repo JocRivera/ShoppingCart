@@ -34,9 +34,9 @@ export function LoginForm({ className, toggleForm = () => { }, onSuccess = () =>
     (<div className={cn("flex flex-col gap-7", className)} {...props}>
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Iniciar sesión con tu cuenta</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Ingresa tu correo electrónico a continuación para iniciar sesión en tu cuenta
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -44,18 +44,18 @@ export function LoginForm({ className, toggleForm = () => { }, onSuccess = () =>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required
+                <Input id="email" type="email" placeholder="ejemplo@tudominio.com" required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Contraseña</Label>
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
-                    Forgot your password?
+                    ¿Olvidaste tu contraseña?
                   </a>
                 </div>
                 <Input id="password" type="password" required
@@ -65,20 +65,22 @@ export function LoginForm({ className, toggleForm = () => { }, onSuccess = () =>
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
-                  Login
+                  Iniciar sesión
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
+                <Button variant="outline" className="w-full"
+                disabled={true}
+                >
+                  Iniciar sesión con Google
                 </Button>
               </div>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              <span>No tienes una cuenta?{" "}</span>
               <button
                 type="button"
                 onClick={toggleForm}
                 className="text-blue-600 underline underline-offset-4">
-                Sign up
+                Regístrate
               </button>
             </div>
           </form>

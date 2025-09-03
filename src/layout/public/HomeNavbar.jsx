@@ -4,8 +4,16 @@ import { useAuth } from "../../context/auth.jsx";
 import { OpenLogin } from "@/components/dialog/OpenLogin";
 import ProfileButton from "@/components/profile/ProfileButton";
 import { Notification } from "@/components/utils/Notification.jsx";
+import Sidebar from "../admin/Sidebar.jsx";
+import React, { useState } from "react";
 export default function Navbar() {
   const { user, isAuthenticated } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   const renderAuth = () => {
     if (isAuthenticated && user) {
       switch (user.role) {
@@ -36,9 +44,13 @@ export default function Navbar() {
       );
     }
   };
+  const renderSidebar = () => {
+    return <Sidebar isOpen={isSidebarOpen} onToggle={toggleSidebar} />;
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+      {user && user.role === "admin" && renderSidebar()}
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-4 ">
           <Gem size={48} strokeWidth={0.5} />
