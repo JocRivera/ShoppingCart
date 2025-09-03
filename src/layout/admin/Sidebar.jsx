@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                     onClick={onToggle}
                     variant="light"
                     isIconOnly
-                    className="fixed z-10 left-4 mt-2"
+                    className="fixed z-10 left-4 mt-4"
                 >
                     <Menu size={20} />
                 </Button>
