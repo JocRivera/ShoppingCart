@@ -128,7 +128,7 @@ export const CartProvider = ({ children }) => {
 
     const syncLocalStorageToState = async () => {
     const localCart = getFromLocalStorage();
-    debugger
+    
     if (localCart.length > 0 && user) {
         try {
             const response = await cartService.syncCart(localCart.map(item => ({
